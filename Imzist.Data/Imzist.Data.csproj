@@ -46,7 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Catogory.cs">
+    <Compile Include="Category.cs">
       <DependentUpon>ImzistModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Image.cs">
@@ -79,13 +79,11 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <EntityDeploy Include="ImzistModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ImzistModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
     <None Include="ImzistModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ImzistModel.edmx</DependentUpon>

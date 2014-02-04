@@ -26,10 +26,10 @@ namespace Imzist.Data
         public System.DateTime PostedDate { get; set; }
         public System.DateTime ExpirationDate { get; set; }
         public System.Guid UserId { get; set; }
-        public int CatogoryId { get; set; }
+        public int CategoryId { get; set; }
         public int LocationId { get; set; }
     
-        public virtual Catogory Catogory { get; set; }
+        public virtual Category Category { get; set; }
         public virtual ICollection<Image> Images { get; set; }
         public virtual Location Location { get; set; }
     }

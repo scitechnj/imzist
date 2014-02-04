@@ -13,10 +13,10 @@ namespace Imzist.Data
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Entities : DbContext
+    public partial class ImzistEntities : DbContext
     {
-        public Entities()
-            : base("name=Entities")
+        public ImzistEntities()
+            : base("name=ImzistEntities")
         {
         }
     
@@ -25,7 +25,7 @@ namespace Imzist.Data
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<Catogory> Catogories { get; set; }
+        public DbSet<Category> Categories { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<Location> Locations { get; set; }

@@ -6,7 +6,7 @@
     <edmx:StorageModels>
       <Schema Namespace="ImzistModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="ImzistModelStoreContainer">
-          <EntitySet Name="Catogories" EntityType="ImzistModel.Store.Catogories" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Categories" EntityType="ImzistModel.Store.Categories" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Images" EntityType="ImzistModel.Store.Images" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Items" EntityType="ImzistModel.Store.Items" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Locations" EntityType="ImzistModel.Store.Locations" store:Type="Tables" Schema="dbo" />
@@ -14,8 +14,8 @@
             <End Role="Items" EntitySet="Items" />
             <End Role="Images" EntitySet="Images" />
           </AssociationSet>
-          <AssociationSet Name="FK__Items__CatogoryI__08B54D69" Association="ImzistModel.Store.FK__Items__CatogoryI__08B54D69">
-            <End Role="Catogories" EntitySet="Catogories" />
+          <AssociationSet Name="FK__Items__CategoryI__08B54D69" Association="ImzistModel.Store.FK__Items__CategoryI__08B54D69">
+            <End Role="Categories" EntitySet="Categories" />
             <End Role="Items" EntitySet="Items" />
           </AssociationSet>
           <AssociationSet Name="FK__Items__LocationI__09A971A2" Association="ImzistModel.Store.FK__Items__LocationI__09A971A2">
@@ -23,7 +23,7 @@
             <End Role="Items" EntitySet="Items" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="Catogories">
+        <EntityType Name="Categories">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -49,7 +49,7 @@
           <Property Name="PostedDate" Type="datetime" Nullable="false" />
           <Property Name="ExpirationDate" Type="datetime" Nullable="false" />
           <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="CatogoryId" Type="int" Nullable="false" />
+          <Property Name="CategoryId" Type="int" Nullable="false" />
           <Property Name="LocationId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Locations">
@@ -71,15 +71,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Items__CatogoryI__08B54D69">
-          <End Role="Catogories" Type="ImzistModel.Store.Catogories" Multiplicity="1" />
+        <Association Name="FK__Items__CategoryI__08B54D69">
+          <End Role="Categories" Type="ImzistModel.Store.Categories" Multiplicity="1" />
           <End Role="Items" Type="ImzistModel.Store.Items" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Catogories">
+            <Principal Role="Categories">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Items">
-              <PropertyRef Name="CatogoryId" />
+              <PropertyRef Name="CategoryId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -100,13 +100,13 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ImzistModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="Entities" p1:LazyLoadingEnabled="true">
-          <EntitySet Name="Catogories" EntityType="ImzistModel.Catogory" />
+        <EntityContainer Name="ImzistEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories" EntityType="ImzistModel.Category" />
           <EntitySet Name="Images" EntityType="ImzistModel.Image" />
           <EntitySet Name="Items" EntityType="ImzistModel.Item" />
           <EntitySet Name="Locations" EntityType="ImzistModel.Location" />
-          <AssociationSet Name="FK__Items__CatogoryI__08B54D69" Association="ImzistModel.FK__Items__CatogoryI__08B54D69">
-            <End Role="Catogories" EntitySet="Catogories" />
+          <AssociationSet Name="FK__Items__CategoryI__08B54D69" Association="ImzistModel.FK__Items__CategoryI__08B54D69">
+            <End Role="Categories" EntitySet="Categories" />
             <End Role="Items" EntitySet="Items" />
           </AssociationSet>
           <AssociationSet Name="FK__Images__ItemId__0E6E26BF" Association="ImzistModel.FK__Images__ItemId__0E6E26BF">
@@ -118,13 +118,13 @@
             <End Role="Items" EntitySet="Items" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="Catogory">
+        <EntityType Name="Category">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <NavigationProperty Name="Items" Relationship="ImzistModel.FK__Items__CatogoryI__08B54D69" FromRole="Catogories" ToRole="Items" />
+          <NavigationProperty Name="Items" Relationship="ImzistModel.FK__Items__CategoryI__08B54D69" FromRole="Categories" ToRole="Items" />
         </EntityType>
         <EntityType Name="Image">
           <Key>
@@ -146,9 +146,9 @@
           <Property Name="PostedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ExpirationDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UserId" Type="Guid" Nullable="false" />
-          <Property Name="CatogoryId" Type="Int32" Nullable="false" />
+          <Property Name="CategoryId" Type="Int32" Nullable="false" />
           <Property Name="LocationId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Catogory" Relationship="ImzistModel.FK__Items__CatogoryI__08B54D69" FromRole="Items" ToRole="Catogories" />
+          <NavigationProperty Name="Category" Relationship="ImzistModel.FK__Items__CategoryI__08B54D69" FromRole="Items" ToRole="Categories" />
           <NavigationProperty Name="Images" Relationship="ImzistModel.FK__Images__ItemId__0E6E26BF" FromRole="Items" ToRole="Images" />
           <NavigationProperty Name="Location" Relationship="ImzistModel.FK__Items__LocationI__09A971A2" FromRole="Items" ToRole="Locations" />
         </EntityType>
@@ -160,15 +160,15 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Items" Relationship="ImzistModel.FK__Items__LocationI__09A971A2" FromRole="Locations" ToRole="Items" />
         </EntityType>
-        <Association Name="FK__Items__CatogoryI__08B54D69">
-          <End Role="Catogories" Type="ImzistModel.Catogory" Multiplicity="1" />
+        <Association Name="FK__Items__CategoryI__08B54D69">
+          <End Role="Categories" Type="ImzistModel.Category" Multiplicity="1" />
           <End Role="Items" Type="ImzistModel.Item" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Catogories">
+            <Principal Role="Categories">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Items">
-              <PropertyRef Name="CatogoryId" />
+              <PropertyRef Name="CategoryId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -201,10 +201,10 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ImzistModelStoreContainer" CdmEntityContainer="Entities">
-          <EntitySetMapping Name="Catogories">
-            <EntityTypeMapping TypeName="ImzistModel.Catogory">
-              <MappingFragment StoreEntitySet="Catogories">
+        <EntityContainerMapping StorageEntityContainer="ImzistModelStoreContainer" CdmEntityContainer="ImzistEntities">
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="ImzistModel.Category">
+              <MappingFragment StoreEntitySet="Categories">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
@@ -229,7 +229,7 @@
                 <ScalarProperty Name="PostedDate" ColumnName="PostedDate" />
                 <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="CatogoryId" ColumnName="CatogoryId" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="LocationId" ColumnName="LocationId" />
               </MappingFragment>
             </EntityTypeMapping>
