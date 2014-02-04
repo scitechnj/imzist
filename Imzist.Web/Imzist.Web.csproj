@@ -128,6 +128,59 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Munter\css\bootstrap.min.css" />
+    <Content Include="Content\Munter\css\font-awesome.min.css" />
+    <Content Include="Content\Munter\css\style.css" />
+    <Content Include="Content\Munter\fancybox\blank.gif" />
+    <Content Include="Content\Munter\fancybox\fancybox_loading%402x.gif" />
+    <Content Include="Content\Munter\fancybox\fancybox_loading.gif" />
+    <Content Include="Content\Munter\fancybox\fancybox_overlay.png" />
+    <Content Include="Content\Munter\fancybox\fancybox_sprite%402x.png" />
+    <Content Include="Content\Munter\fancybox\fancybox_sprite.png" />
+    <Content Include="Content\Munter\fancybox\jquery.fancybox-v=2.1.5.css" />
+    <Content Include="Content\Munter\fancybox\jquery.fancybox.pack-v=2.1.5.js" />
+    <Content Include="Content\Munter\images\bg1.jpg" />
+    <Content Include="Content\Munter\images\client01.png" />
+    <Content Include="Content\Munter\images\client02.png" />
+    <Content Include="Content\Munter\images\client03.png" />
+    <Content Include="Content\Munter\images\client04.png" />
+    <Content Include="Content\Munter\images\client05.png" />
+    <Content Include="Content\Munter\images\portfolio\p01-large.jpg" />
+    <Content Include="Content\Munter\images\portfolio\p01-small.jpg" />
+    <Content Include="Content\Munter\images\portfolio\p02-large.jpg" />
+    <Content Include="Content\Munter\images\portfolio\p02-small.jpg" />
+    <Content Include="Content\Munter\images\portfolio\p03-large.jpg" />
+    <Content Include="Content\Munter\images\portfolio\p03-small.jpg" />
+    <Content Include="Content\Munter\images\portfolio\p04-large.jpg" />
+    <Content Include="Content\Munter\images\portfolio\p04-small.jpg" />
+    <Content Include="Content\Munter\images\portfolio\p05-large.jpg" />
+    <Content Include="Content\Munter\images\portfolio\p05-small.jpg" />
+    <Content Include="Content\Munter\images\portfolio\p06-large.jpg" />
+    <Content Include="Content\Munter\images\portfolio\p06-small.jpg" />
+    <Content Include="Content\Munter\images\portfolio\p07-large.jpg" />
+    <Content Include="Content\Munter\images\portfolio\p07-small.jpg" />
+    <Content Include="Content\Munter\images\portfolio\p08-large.jpg" />
+    <Content Include="Content\Munter\images\portfolio\p08-small.jpg" />
+    <Content Include="Content\Munter\images\portfolio\p09-large.jpg" />
+    <Content Include="Content\Munter\images\portfolio\p09-small.jpg" />
+    <Content Include="Content\Munter\images\portfolio\p10-large.jpg" />
+    <Content Include="Content\Munter\images\portfolio\p10-small.jpg" />
+    <Content Include="Content\Munter\images\portfolio\p11-large.jpg" />
+    <Content Include="Content\Munter\images\portfolio\p11-small.jpg" />
+    <Content Include="Content\Munter\images\portfolio\p12-large.jpg" />
+    <Content Include="Content\Munter\images\portfolio\p12-small.jpg" />
+    <Content Include="Content\Munter\images\s01.png" />
+    <Content Include="Content\Munter\images\s02.png" />
+    <Content Include="Content\Munter\images\s03.png" />
+    <Content Include="Content\Munter\images\website-arrows.png" />
+    <Content Include="Content\Munter\images\zoom.png" />
+    <Content Include="Content\Munter\index.html" />
+    <Content Include="Content\Munter\js\bootstrap.min.js" />
+    <Content Include="Content\Munter\js\html5shiv.js" />
+    <Content Include="Content\Munter\js\jquery-1.10.2.min.js" />
+    <Content Include="Content\Munter\js\jquery-migrate-1.2.1.min.js" />
+    <Content Include="Content\Munter\js\jquery.easing.1.3.js" />
+    <Content Include="Content\Munter\js\script.js" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -184,6 +237,11 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\Munter\font\fontawesome-webfont-.eot" />
+    <Content Include="Content\Munter\font\fontawesome-webfont-v=3.2.1.eot" />
+    <Content Include="Content\Munter\font\fontawesome-webfont-v=3.2.1.ttf" />
+    <Content Include="Content\Munter\font\fontawesome-webfont-v=3.2.1.woff" />
+    <Content Include="Content\Munter\font\fontawesome-webfont.svg" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
