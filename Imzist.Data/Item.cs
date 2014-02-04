@@ -29,7 +29,6 @@ namespace Imzist.Data
         public int CatogoryId { get; set; }
         public int LocationId { get; set; }
     
-        public virtual aspnet_Users aspnet_Users { get; set; }
         public virtual Catogory Catogory { get; set; }
         public virtual ICollection<Image> Images { get; set; }
         public virtual Location Location { get; set; }

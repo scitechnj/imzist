@@ -25,16 +25,6 @@ namespace Imzist.Data
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<aspnet_Applications> aspnet_Applications { get; set; }
-        public DbSet<aspnet_Membership> aspnet_Membership { get; set; }
-        public DbSet<aspnet_Paths> aspnet_Paths { get; set; }
-        public DbSet<aspnet_PersonalizationAllUsers> aspnet_PersonalizationAllUsers { get; set; }
-        public DbSet<aspnet_PersonalizationPerUser> aspnet_PersonalizationPerUser { get; set; }
-        public DbSet<aspnet_Profile> aspnet_Profile { get; set; }
-        public DbSet<aspnet_Roles> aspnet_Roles { get; set; }
-        public DbSet<aspnet_SchemaVersions> aspnet_SchemaVersions { get; set; }
-        public DbSet<aspnet_Users> aspnet_Users { get; set; }
-        public DbSet<aspnet_WebEvent_Events> aspnet_WebEvent_Events { get; set; }
         public DbSet<Catogory> Catogories { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<Item> Items { get; set; }
