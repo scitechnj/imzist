@@ -122,6 +122,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -143,6 +144,7 @@
     <Content Include="Content\Munter\css\bootstrap.min.css" />
     <Content Include="Content\Munter\css\font-awesome.min.css" />
     <Content Include="Content\Munter\css\style.css" />
+    <Content Include="Content\Munter\ExtraSiteCode.html" />
     <Content Include="Content\Munter\fancybox\blank.gif" />
     <Content Include="Content\Munter\fancybox\fancybox_loading%402x.gif" />
     <Content Include="Content\Munter\fancybox\fancybox_loading.gif" />
@@ -152,11 +154,14 @@
     <Content Include="Content\Munter\fancybox\jquery.fancybox-v=2.1.5.css" />
     <Content Include="Content\Munter\fancybox\jquery.fancybox.pack-v=2.1.5.js" />
     <Content Include="Content\Munter\images\bg1.jpg" />
+    <Content Include="Content\Munter\images\brooklynsymbol.png" />
     <Content Include="Content\Munter\images\client01.png" />
     <Content Include="Content\Munter\images\client02.png" />
     <Content Include="Content\Munter\images\client03.png" />
     <Content Include="Content\Munter\images\client04.png" />
     <Content Include="Content\Munter\images\client05.png" />
+    <Content Include="Content\Munter\images\lakewoodsymbol.png" />
+    <Content Include="Content\Munter\images\monseysymbol.png" />
     <Content Include="Content\Munter\images\portfolio\p01-large.jpg" />
     <Content Include="Content\Munter\images\portfolio\p01-small.jpg" />
     <Content Include="Content\Munter\images\portfolio\p02-large.jpg" />
@@ -255,6 +260,7 @@
     <Content Include="Content\Munter\font\fontawesome-webfont-v=3.2.1.woff" />
     <Content Include="Content\Munter\font\fontawesome-webfont.svg" />
     <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <Content Include="Content\Munter\.DS_Store" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
@@ -284,10 +290,10 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
     <Folder Include="Models\" />
     <Folder Include="obj\Debug\TempPE\" />
   </ItemGroup>
