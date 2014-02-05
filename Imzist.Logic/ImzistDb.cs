@@ -53,6 +53,5 @@ namespace Imzist.Logic
                 return db.Locations.FirstOrDefault(l => l.Id == id);
             }
         }
-
     }
 }
