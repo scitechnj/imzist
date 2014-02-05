@@ -83,6 +83,8 @@ body {
 .navbar-responsive-collapse {
 	margin: 0 auto;
 	width: 80%;
+    background-color: #4e4e4e;
+    background-color: rgba( 78, 78, 78, 255 );
 }
 
 .nav li {
@@ -168,7 +170,7 @@ body {
 	}
 	
 	.navbar {
-		background-color: #e4e6e5 !important;
+		background-color: #4e4e4e !important;
 		padding: 0;
 	}
 	
@@ -237,19 +239,26 @@ body {
 	background-position: center center;
 }
 
+@media (max-width: 500px) {
+    #slide-1 h1 {
+        font-size: 500% !important;
+    }
+}
+
+
 #slide-1 h1 {
 	padding-top: 130px;
 }
 
-@media (max-width: 991px) {
-	#slide-1 {
-		background-position: -70% 0, 170% 0;
+@media (min-width: 500px) {
+	#slide-1 h1 {
+	    font-size: 1000% !important;
 	}
 }
 
 @media (max-width: 767px) {
 	#slide-1 {
-		background-image: none;
+		
 	}
 }
 
