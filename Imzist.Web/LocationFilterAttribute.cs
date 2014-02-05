@@ -10,9 +10,12 @@ namespace Imzist.Web
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            var location = filterContext.RouteData.Values["location"].ToString();
-            if (filterContext.HttpContext.Session != null) filterContext.HttpContext.Session["locaton"] = location;
-            base.OnActionExecuting(filterContext);
+            if (filterContext.RouteData.Values["location"] != null)
+            {
+                var location = filterContext.RouteData.Values["location"].ToString();
+                if (filterContext.HttpContext.Session != null) filterContext.HttpContext.Session["location"] = location;
+                base.OnActionExecuting(filterContext);   
+            }
         }
     }
 }
