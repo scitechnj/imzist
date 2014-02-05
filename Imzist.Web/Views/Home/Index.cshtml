@@ -1,0 +1,122 @@
+﻿<!doctype html>
+<html>
+<head lang="en">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	
+	<title>Izmist</title> 
+	<meta name="description" content="Izmist - Online Freebay" />	    
+	<meta name="keywords" content="themes, bootstrap, free, templates, bootstrap 3, freebie,">
+	<meta property="og:title" content="">
+
+	<link rel="stylesheet" type="text/css" href="../../Content/Munter/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../../Content/Munter/fancybox/jquery.fancybox-v=2.1.5.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="../../Content/Munter/css/font-awesome.min.css" rel="stylesheet">
+	
+	<link rel="stylesheet" type="text/css" href="~/Content/Munter/css/style.css">	
+	
+	<link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,600,300,200&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+	
+	
+	<link rel="prefetch" href="~/Content/Munter/images/zoom.png">
+		
+</head>
+
+<body>
+	<div class="navbar navbar-fixed-top" data-activeslide="1">
+		<div class="container">
+		
+			<!-- .navbar-toggle is used as the toggle for collapsed navbar content -->
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+			
+			<div class="nav-collapse collapse navbar-responsive-collapse">
+				<ul class="nav row">
+					<li class="col-12 col-sm-2"><a id="menu-link-1" href="#slide-1" title="Next Section"><span class="icon icon-home"></span> <span class="text">HOME</span></a></li>
+					<li class="col-12 col-sm-2 dropdown">
+						<a id="menu-link-2" href="#" title="Next Section" class="dropdown-toggle" data-toggle="dropdown">
+							<span class="icon icon-map-marker"></span> <span class="text">Locations</span>
+							<b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Brooklyn</a></li>
+							<li><a href="#">Lakewood</a></li>
+							<li><a href="#">Monsey</a></li>
+						</ul>
+					</li>
+					<!-- <li data-slide="3" class="col-12 col-sm-2"><a id="menu-link-3" href="#slide-3" title="Next Section"><span class="icon icon-briefcase"></span> <span class="text">PORTFOLIO</span></a></li>
+					<li data-slide="4" class="col-12 col-sm-2"><a id="menu-link-4" href="#slide-4" title="Next Section"><span class="icon icon-gears"></span> <span class="text">PROCESS</span></a></li>
+					<li data-slide="5" class="col-12 col-sm-2"><a id="menu-link-5" href="#slide-5" title="Next Section"><span class="icon icon-heart"></span> <span class="text">CLIENTS</span></a></li>
+					<li data-slide="6" class="col-12 col-sm-2"><a id="menu-link-6" href="#slide-6" title="Next Section"><span class="icon icon-envelope"></span> <span class="text">CONTACT</span></a></li> -->
+				</ul>
+				<div class="row">
+					<div class="col-sm-2 active-menu"></div>
+				</div>
+			</div><!-- /.nav-collapse -->
+		</div><!-- /.container -->
+	</div><!-- /.navbar -->
+	
+	
+	<!-- === Arrows === -->
+<!-- 	<div id="arrows">
+		<div id="arrow-up" class="disabled"></div>
+		<div id="arrow-down"></div>
+		<div id="arrow-left" class="disabled visible-lg"></div>
+		<div id="arrow-right" class="disabled visible-lg"></div>
+	</div> --><!-- /.arrows -->
+	
+	
+	<!-- === MAIN Background === -->
+	<div class="slide story" id="slide-1" data-slide="1">
+		<div class="container">
+			<div id="home-row-1" class="row clearfix">
+				<div class="col-12">
+					<h1 class="font-semibold" style="font-size: 800%">IZ<span class="font-thin">MIST</span></h1>
+					<br><br>
+					<h4 class="font-thin">Because to share is <span class="font-semibold">to be free</span></h4>
+					<br>
+					<br>
+				</div><!-- /col-12 -->
+			</div><!-- /row -->
+			<div id="home-row-2" class="row clearfix">
+				<div class="col-12 col-sm-4"><div class="home-hover navigation-slide"><img src="~/Content/Munter/images/brooklynsymbol.png"></div><span>BROOKLYN</span></div>
+				<div class="col-12 col-sm-4"><div class="home-hover navigation-slide"><img src="~/Content/Munter/images/lakewoodsymbol.png"></div><span>LAKEWOOD</span></div>
+				<div class="col-12 col-sm-4"><div class="home-hover navigation-slide"><img src="~/Content/Munter/images/monseysymbol.png"></div><span>MONSEY</span></div>
+			</div><!-- /row -->
+		</div><!-- /container -->
+	</div><!-- /slide1 -->
+	
+</body>
+
+	<!-- SCRIPTS -->
+	<script src="~/Content/Munter/js/html5shiv.js"></script>
+	<script src="~/Content/Munter/js/jquery-1.10.2.min.js"></script>
+	<script src="~/Content/Munter/js/jquery-migrate-1.2.1.min.js"></script>
+	<script src="~/Content/Munter/js/bootstrap.min.js"></script>
+	<script src="~/Content/Munter/js/jquery.easing.1.3.js"></script>
+	<script type="text/javascript" src="~/Content/Munter/fancybox/jquery.fancybox.pack-v=2.1.5.js"></script>
+	<script src="~/Content/Munter/js/script.js"></script>
+	
+	<!-- fancybox init -->
+	<script>
+	    $(document).ready(function (e) {
+	        var lis = $('.nav > li');
+	        menu_focus(lis[0], 1);
+
+	        $(".fancybox").fancybox({
+	            padding: 10,
+	            helpers: {
+	                overlay: {
+	                    locked: false
+	                }
+	            }
+	        });
+
+	    });
+	</script>
+
+</html>
