@@ -10,11 +10,16 @@ namespace Imzist.Web.Helpers
     {
         public static Location GetLocation()
         {
-            var location = HttpContext.Current.Session["location"].ToString();
-            using (var db = new ImzistEntities())
+            private static IEnumerable<Location> _locations;
+            if(_locations == null)
             {
-                return db.Locations.FirstOrDefault(l => l.Name == location);
+                using (var db = new ImzistEntities())
+                {
+                    _locations = db.Locations.ToList();
+                }
             }
+            var location = HttpContext.Current.Session["location"].ToString();
+            return _locations.FirstOrDefault(l => l.Name == location);
         }
     }
 }
