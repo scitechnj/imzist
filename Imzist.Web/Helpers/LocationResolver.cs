@@ -8,9 +8,9 @@ namespace Imzist.Web.Helpers
 {
     public static class LocationResolver
     {
+        private static IEnumerable<Location> _locations;
         public static Location GetLocation()
         {
-            private static IEnumerable<Location> _locations;
             if(_locations == null)
             {
                 using (var db = new ImzistEntities())
