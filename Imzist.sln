@@ -5,6 +5,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Imzist.Web", "Imzist.Web\Im
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Imzist.Data", "Imzist.Data\Imzist.Data.csproj", "{F9D1B319-5C8E-4315-923D-0289DCD28968}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Imzist.Business", "Imzist.Business\Imzist.Business.csproj", "{75EB0CDB-2478-4502-9974-CC0A704D4D4F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApplicationEmailer", "ConsoleApplicationEmailer\ConsoleApplicationEmailer.csproj", "{B20877A7-CDD2-487B-9BBA-F4F1033808E6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +23,14 @@ Global
 		{F9D1B319-5C8E-4315-923D-0289DCD28968}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9D1B319-5C8E-4315-923D-0289DCD28968}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F9D1B319-5C8E-4315-923D-0289DCD28968}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75EB0CDB-2478-4502-9974-CC0A704D4D4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75EB0CDB-2478-4502-9974-CC0A704D4D4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75EB0CDB-2478-4502-9974-CC0A704D4D4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75EB0CDB-2478-4502-9974-CC0A704D4D4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B20877A7-CDD2-487B-9BBA-F4F1033808E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B20877A7-CDD2-487B-9BBA-F4F1033808E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B20877A7-CDD2-487B-9BBA-F4F1033808E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B20877A7-CDD2-487B-9BBA-F4F1033808E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
