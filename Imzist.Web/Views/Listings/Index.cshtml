@@ -31,34 +31,30 @@ else
 }
 
 <div class="container">
-        <h1 style="color:white; margin-top: 50px;">Location: @location</h1>
-
-
-        <div id="sidebar" data-spy="affix" data-offset-top="60" data-offset-bottom="200" style="margin-left: 10px;">
-            <div class="col-md-3 col-sm-3 col-xs-3">
-                <div class="bs-sidebar affix" style="background-color: #f0eeec; padding: 15px; border-radius: 15px;">
-                    <ul class="nav nav-pills nav-stacked">
-                        <li><a href="#">Link 1</a></li>
-                        <li><a href="#">Link 2</a></li>
-                    </ul>
-                </div> <!--well bs-sidebar affix-->
-            </div> <!--col-md-3-->
+    <div class="row">
+        <div class="col-md-2">
+            <div class="col-md-2">
+                <div class="bs-sidebar affix" id="sidebar" data-spy="affix" data-offset-top="60" data-offset-bottom="200" style="margin-left: 10px;">
+                    <div class="bs-sidebar affix" style="background-color: #f0eeec; padding: 15px; border-radius: 15px; width: 100px;">
+                        <ul class="nav bs-sidenav nav-pills nav-stacked">
+                            <li><a href="#">Link 1</a></li>
+                            <li><a href="#">Link 2</a></li>
+                        </ul>
+                    </div> <!--well bs-sidebar affix-->
+                </div> <!--col-md-3-->
+            </div>
+        </div>
+        <div class="col-4" style="text-align: center;">
+            <h1 style="color:white; margin-top: 80px;">Location: @location</h1>
         </div> <!--row-->
     </div>
+</div>
 
 
 @section scripts
 {
     <script>
         $(function() {
-            $('#sidebar').affix({
-                offset: {
-                    top: 100
-                }
-            });
-        });
-        
-        $(document).ready(function (e) {
             var lis = $('.nav > li');
             menu_focus(lis[1], 4);
         });
