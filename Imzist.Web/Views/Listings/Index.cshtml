@@ -19,8 +19,19 @@
     </style>
 }
 
-    <div class="container">
-        <h1 style="color:white; margin-top: 50px;">TESTING @ViewBag.Location</h1>
+@{ string location;}
+
+@if (this.Context.Session["location"] != null)
+{
+    location = this.Context.Session["location"].ToString();
+}
+else
+{
+    location = "";
+}
+
+<div class="container">
+        <h1 style="color:white; margin-top: 50px;">Location: @location</h1>
 
 
         <div id="sidebar" data-spy="affix" data-offset-top="60" data-offset-bottom="200" style="margin-left: 10px;">
