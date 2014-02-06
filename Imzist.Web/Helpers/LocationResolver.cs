@@ -8,13 +8,18 @@ namespace Imzist.Web.Helpers
 {
     public static class LocationResolver
     {
+        private static IEnumerable<Location> _locations;
         public static Location GetLocation()
         {
-            var location = HttpContext.Current.Session["location"].ToString();
-            using (var db = new ImzistEntities())
+            if(_locations == null)
             {
-                return db.Locations.FirstOrDefault(l => l.Name == location);
+                using (var db = new ImzistEntities())
+                {
+                    _locations = db.Locations.ToList();
+                }
             }
+            var location = HttpContext.Current.Session["location"].ToString();
+            return _locations.FirstOrDefault(l => l.Name.ToLowerInvariant() == location.ToLowerInvariant());
         }
     }
 }
