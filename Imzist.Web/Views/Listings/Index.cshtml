@@ -1,1 +1,55 @@
-﻿<h1 style="color:white;">@ViewBag.Location</h1>
+﻿@section styles
+{
+    <style>
+        .bs-sidebar .affix {
+	        position: fixed; 
+	        top: 70px;
+	        left: 62px;
+	        width: 360px;
+        }
+        .bs-sidebar .affix-top {
+	        position: fixed; 
+	        top: 70px;
+	        left: 62px;
+	        width: 360px;
+        }
+        .bs-sidebar .affix-bottom {
+	        position: absolute;
+        }
+    </style>
+}
+
+    <div class="container">
+        <h1 style="color:white; margin-top: 50px;">TESTING @ViewBag.Location</h1>
+
+
+        <div id="sidebar" data-spy="affix" data-offset-top="60" data-offset-bottom="200" style="margin-left: 10px;">
+            <div class="col-md-3 col-sm-3 col-xs-3">
+                <div class="bs-sidebar affix" style="background-color: #f0eeec; padding: 15px; border-radius: 15px;">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a href="#">Link 1</a></li>
+                        <li><a href="#">Link 2</a></li>
+                    </ul>
+                </div> <!--well bs-sidebar affix-->
+            </div> <!--col-md-3-->
+        </div> <!--row-->
+    </div>
+
+
+@section scripts
+{
+    <script>
+        $(function() {
+            $('#sidebar').affix({
+                offset: {
+                    top: 100
+                }
+            });
+        });
+        
+        $(document).ready(function (e) {
+            var lis = $('.nav > li');
+            menu_focus(lis[1], 4);
+        });
+    </script>
+}

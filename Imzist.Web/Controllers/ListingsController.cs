@@ -11,8 +11,6 @@ namespace Imzist.Web.Controllers
     {
         public ActionResult Index()
         {
-            var location = LocationResolver.GetLocation();
-            ViewBag.Location = location.Name;
             return View();
         }
 

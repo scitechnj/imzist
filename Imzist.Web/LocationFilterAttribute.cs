@@ -13,7 +13,7 @@ namespace Imzist.Web
             if (filterContext.RouteData.Values["location"] != null)
             {
                 var location = filterContext.RouteData.Values["location"].ToString();
-                if (filterContext.HttpContext.Session != null) filterContext.HttpContext.Session["location"] = location;
+                filterContext.HttpContext.Session["location"] = location;
                 base.OnActionExecuting(filterContext);   
             }
         }
