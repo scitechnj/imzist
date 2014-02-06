@@ -19,7 +19,7 @@ namespace Imzist.Web.Helpers
                 }
             }
             var location = HttpContext.Current.Session["location"].ToString();
-            return _locations.FirstOrDefault(l => l.Name == location);
+            return _locations.FirstOrDefault(l => l.Name.ToLowerInvariant() == location.ToLowerInvariant());
         }
     }
 }
