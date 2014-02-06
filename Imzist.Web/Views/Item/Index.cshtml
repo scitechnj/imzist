@@ -1,7 +1,13 @@
-﻿@model dynamic
+﻿@using Imzist.Data
+@model Imzist.Data.Item
 
-@{
-    ViewBag.Title = "title";
+<h2>@Model.Name</h2>
+
+<p>@Model.Description</p>
+
+<div class="images">
+@foreach(Image image in Model.Images)
+{
+    <img src="~/Content/images/thumbnail/@image.Name"/>
 }
-
-<h2>title</h2>
+</div>
