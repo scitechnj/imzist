@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using Imzist.Data;
+using System.Data.Entity;
 
 namespace Imzist.Logic
 {
@@ -32,7 +33,9 @@ namespace Imzist.Logic
             {
                 string location = context.Session["location"].ToString();
 //                var items = db.Items.Where(i => i.Location.Name == location).ToList();
-                return db.Images.Select(i => i.Item).Distinct().Where(i => i.Location.Name == location).ToList();
+                var items = db.Items.Include(i => i.Images);
+
+                return items.Where(i => i.Location.Name == location).ToList();
             }
         }
 
