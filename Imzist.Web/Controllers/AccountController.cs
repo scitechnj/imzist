@@ -9,6 +9,11 @@ namespace Imzist.Web.Controllers
 {
     public class AccountController : Controller
     {
+        public ActionResult Index()
+        {
+            return View();
+        }
+
         [HttpPost]
         public ActionResult SignUp(string username, string password)
         {

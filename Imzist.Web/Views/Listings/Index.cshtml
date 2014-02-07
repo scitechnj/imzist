@@ -1,4 +1,7 @@
-﻿@section styles
+﻿@using Imzist.Data
+@model Imzist.Web.Models.ListingsViewModel 
+
+@section styles
 {
     <style>
         .bs-sidebar .affix {
@@ -31,22 +34,59 @@ else
 }
 
 <div class="container">
-    <div class="row">
+    <div class="row" style="margin-left: 0;">
         <div class="col-md-2">
             <div class="col-md-2">
-                <div class="bs-sidebar affix" id="sidebar" data-spy="affix" data-offset-top="60" data-offset-bottom="200" style="margin-left: 10px;">
-                    <div class="bs-sidebar affix" style="background-color: #f0eeec; padding: 15px; border-radius: 15px; width: 100px;">
+                <div class="bs-sidebar affix" id="sidebar" data-spy="affix" data-offset-top="60" data-offset-bottom="200">
+                    <div class="bs-sidebar affix" style="background-color: #f0eeec; padding: 4px; padding-left: 8px; padding-right: 8px; margin-top: 70px; border-radius: 15px; width: 120px;">
                         <ul class="nav bs-sidenav nav-pills nav-stacked">
-                            <li><a href="#">Link 1</a></li>
-                            <li><a href="#">Link 2</a></li>
+                            @foreach (Category category in @Model.Categories)
+                            {
+                                <li><a href="#">@category.Name</a></li>
+                                if (category != Model.Categories.Last())
+                                {
+                                    <hr style="border-color: black; height: 1px; margin: 4px;"/>
+                                }
+                            }
                         </ul>
                     </div> <!--well bs-sidebar affix-->
                 </div> <!--col-md-3-->
             </div>
         </div>
-        <div class="col-4" style="text-align: center;">
-            <h1 style="color:white; margin-top: 80px;">Location: @location</h1>
+        <div class="col-md-12">
+            <div style="text-align: center;">
+                <h1 style="color:white; margin-top: 80px; margin-bottom: 20px;">@location</h1>
+            </div>
+            <div style="margin-left: 50px;">
+                @for (int i = 1; i <= 50; i++)
+                {
+                    <div style="background: #f6f3e8; border-radius: 15px; padding-top: 10px; padding-bottom: 10px; margin-right: 25px; margin-bottom: 25px;">
+                        <div class="clearfix" style="padding-left: 30px; padding-top: 10px; padding-bottom: 10px;">
+                            @*                            <img class="img-rounded" src="@item.Images.FirstOrDefault()" style="width: 25px; height: 25px;"/>*@
+                            <img class="img-rounded pull-left" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120" style="width: 90px; height: 90px; margin-right: 20px;"/>
+                            <p class="pull-right" style="margin-right: 40px;">Description item.Description</p>
+                            <div>
+                                <div class="col-md-3"><h4>Title item.Title</h4></div>
+                                <div class="col-md-3"><h5>Posted Date item.PostedDate</h5></div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                @foreach (Item item in @Model.Items)
+                {
+                    <div style="background: #f6f3e8; border-radius: 15px; padding-top: 10px; padding-bottom: 10px; margin-right: 25px; margin-bottom: 25px;">
+                        <span>
+                            @*                            <img class="img-rounded" src="@item.Images.FirstOrDefault()" style="width: 25px; height: 25px;"/>*@
+                            <img class="img-rounded" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120" style="width: 25px; height: 25px;"/>
+                            <h4>Title @item.Title</h4>
+                            <h5>Posted Date @item.PostedDate</h5>
+                            <p>Description @item.Description</p>
+                        </span>
+                    </div>
+                }      
+            </div>
         </div> <!--row-->
+        <div class="col-md-4"></div>
     </div>
 </div>
 
