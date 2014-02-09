@@ -14,26 +14,31 @@ namespace Imzist.Web.Controllers
         {
             return View();
         }
-
-        [HttpPost]
-        public ActionResult Login(string username, string password, string returnUrl)
-        {
-            if (Membership.ValidateUser(username, password))
-            {
-                FormsAuthentication.SetAuthCookie(username, false);
-                return Redirect(returnUrl ?? "/");
-            }
-            ViewBag.ErrorMessage = "Please enter a valid login";
-            return View();
-        }
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
             return RedirectToAction("Index","Home");
         }
-
         public ActionResult SignUp()
         {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Login(string username, string password, string returnUrl)
+        {
+            try
+            {
+                if (Membership.ValidateUser(username, password))
+                {
+                    FormsAuthentication.SetAuthCookie(username, false);
+                    return Redirect(returnUrl ?? "/");
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ErrorMessage = ex.Message;
+            }
             return View();
         }
         [HttpPost]
@@ -55,7 +60,6 @@ namespace Imzist.Web.Controllers
                 return View();
             }
         }
-
         [HttpPost]
         public ActionResult UserNameExists(string username)
         {
