@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -8,6 +10,7 @@ using Imzist.Data;
 using System.Data.Entity;
 using System.Web.Security;
 using Imzist.Data;
+using Imzist.Logic;
 using Imzist.Web.Helpers;
 using Imzist.Web.Models;
 
@@ -21,22 +24,20 @@ namespace Imzist.Web.Controllers
         {
             using (var dbcontext = new ImzistEntities())
             {
-                IEnumerable<Item> items = dbcontext.Items.Include(it=>it.Images);
+                IEnumerable<Item> items = dbcontext.Items.Include(it => it.Images);
                 Item item = items.FirstOrDefault(i => i.Id == id);
                 return View(item);
             }
-            
-            
         }
 
         public ActionResult Add()
         {
             var model = new AddListingViewModel();
             model.UserId = Guid.NewGuid(); //(Guid)Membership.GetUser(User.Identity.Name).ProviderUserKey
-                
+
             using (var dbContext = new ImzistEntities())
             {
-               model.Categories = dbContext.Categories.ToList();
+                model.Categories = dbContext.Categories.ToList();
             }
 
             return View(model);
@@ -45,30 +46,47 @@ namespace Imzist.Web.Controllers
         [HttpPost]
         public ActionResult Add(Item item, int expirationDays)
         {
-           
             item.Location = LocationResolver.GetLocation();
+            item.UserId = Guid.Parse("88923831-E379-4FE3-8EDD-2342CF7727B5");
             item.PostedDate = DateTime.Now;
             item.ExpirationDate = item.PostedDate.AddDays(expirationDays);
-            foreach (HttpPostedFileBase imageFile in Request.Files)
+            foreach (string file in Request.Files)
             {
-                Image img = new Image();
-                //thumbnail maker
-                //saving to disk
-                //renaming to guid with .extension
-                //any validation
+                var imageFile = Request.Files[file];
+                if (imageFile == null)
+                {
+                    continue;
+                }
 
-//                img.Name = imageFile.FileName
-                item.Images.Add(img);
+                var imageBytes = new byte[imageFile.InputStream.Length];
+                imageFile.InputStream.Read(imageBytes, 0, imageBytes.Length);
+                var imageStream = new MemoryStream(imageBytes);
+
+                if (ImageHelper.IsValidImage(imageStream))
+                {
+                    string newFileName = ImageHelper.RenameImageFile(imageFile.FileName);
+                    Image img = new Image { Name = newFileName };
+                    imageFile.SaveAs(Path.Combine(Server.MapPath("~/content/images/Full"), newFileName));
+                    ImageHelper.ThumbnailMaker(imageStream,
+                                               Path.Combine(Server.MapPath("~/Content/Images/Thumbnail"), newFileName),
+                                               50);
+                    item.Images.Add(img);
+                }
+
+                imageFile.InputStream.Dispose();
+                imageStream.Dispose();
             }
-            
-           
+
+
             using (var dbContext = new ImzistEntities())
             {
                 dbContext.Items.Add(item);
                 dbContext.SaveChanges();
+                var newId = item.Id;
+                return RedirectToAction("Index", new { location = LocationResolver.GetLocation().Name, id = newId });
             }
-            return Json(item);
-        }
 
+
+        }
     }
 }
