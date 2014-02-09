@@ -31,5 +31,12 @@ namespace Imzist.Logic
         //{
         //    image
         //}
+
+        public static string RenameImageFile(string currentFileName)
+        {
+            return Guid.NewGuid().ToString() + Path.GetExtension(currentFileName);
+        }
+
+
     }
 }
