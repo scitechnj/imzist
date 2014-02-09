@@ -32,22 +32,22 @@ namespace Imzist.Logic
         {
             if (imageStream.Length > 0)
             {
-                byte[] header = new byte[4]; // Change size if needed.
-                string[] imageHeaders = new[]{
-                "\xFF\xD8", // JPEG
-                "BM",       // BMP
-                "GIF",      // GIF
-                Encoding.ASCII.GetString(new byte[]{137, 80, 78, 71})}; // PNG
+                //byte[] header = new byte[4]; // Change size if needed.
+                //string[] imageHeaders = new[]{
+                //"\xFF\xD8", // JPEG
+                //"BM",       // BMP
+                //"GIF",      // GIF
+                //Encoding.ASCII.GetString(new byte[]{137, 80, 78, 71})}; // PNG
 
-                imageStream.Read(header, 0, header.Length);
+                //imageStream.Read(header, 0, header.Length);
 
-                bool isImageHeader = imageHeaders.Any(str => Encoding.ASCII.GetString(header).StartsWith(str));
+                //bool isImageHeader = imageHeaders.Any(str => Encoding.ASCII.GetString(header).StartsWith(str));
+                bool isImageHeader = true;
                 if (isImageHeader)
                 {
                     try
                     {
                         Image.FromStream(imageStream).Dispose();
-                        imageStream.Close();
                         return true;
                     }
 
