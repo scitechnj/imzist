@@ -20,9 +20,9 @@
 			</div><!-- /col-12 -->
 		</div><!-- /row -->
 		<div id="home-row-2" class="row clearfix">
-			<div class="col-12 col-sm-4"><div class="home-hover navigation-slide"><img src="~/Content/Munter/images/brooklynsymbol.png"></div><span>BROOKLYN</span></div>
-			<div class="col-12 col-sm-4"><div class="home-hover navigation-slide"><img src="~/Content/Munter/images/lakewoodsymbol.png"></div><span>LAKEWOOD</span></div>
-			<div class="col-12 col-sm-4"><div class="home-hover navigation-slide"><img src="~/Content/Munter/images/monseysymbol.png"></div><span>MONSEY</span></div>
+		    <div class="col-12 col-sm-4"><div class="home-hover navigation-slide"><img id="brooklyn" src="~/Content/Munter/images/brooklynsymbol.png" /></div><span>BROOKLYN</span></div>
+			<div class="col-12 col-sm-4"><div class="home-hover navigation-slide"><img id="lakewood" src="~/Content/Munter/images/lakewoodsymbol.png"></div><span>LAKEWOOD</span></div>
+			<div class="col-12 col-sm-4"><div class="home-hover navigation-slide"><img id="monsey" src="~/Content/Munter/images/monseysymbol.png"></div><span>MONSEY</span></div>
 		</div><!-- /row -->
 	</div><!-- /container -->
 </div><!-- /slide1 -->
@@ -33,6 +33,18 @@
             $(document).ready(function (e) {
                 var lis = $('.nav > li');
                 menu_focus(lis[0], 4);
+
+                $("#brooklyn").click(function() {
+                    window.location.href = "/Brooklyn/Listings/Index";
+                });
+                
+                $("#lakewood").click(function () {
+                    window.location.href = "/Lakewood/Listings/Index";
+                });
+                
+                $("#monsey").click(function () {
+                    window.location.href = "/Monsey/Listings/Index";
+                });
             });
         </script>
 }

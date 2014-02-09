@@ -39,6 +39,17 @@ namespace Imzist.Logic
             }
         }
 
+        public IEnumerable<Item> CategoryBasedItems(string category, HttpContextBase context)
+        {
+            using (var db = new ImzistEntities())
+            {
+                string location = context.Session["location"].ToString();
+                var items = db.Items.Include(i => i.Images);
+
+                return items.Where(i => i.Category.Name == category && i.Location.Name == location).ToList();
+            }
+        }
+
         public IEnumerable<Category> Categories()
         {
             using (var db = new ImzistEntities())
