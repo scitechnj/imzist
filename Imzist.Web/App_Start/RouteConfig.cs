@@ -13,6 +13,8 @@ namespace Imzist.Web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            routes.MapRoute("Account", "Account/{action}", new {controller = "Account"});
+
             routes.MapRoute(
                 "Item",
                  "{location}/Item/{id}",

@@ -13,50 +13,53 @@
 
 @section scripts
 {
-  <script>
-    $(function () {
-        var $pass = $("#pass");
-        var $conf = $("#conf");
-        var $email = $("#email");
-        
-        $email.on("blur", function () {
-            alert("email changed");
-            if (IsEmail($email)) {
-                $email.addClass("inputSuccess3");
-            } else {
-                $email.removeClass("inputSuccess3");
-                $email.addClass("inputError3");
-            }
-        });
-        
-        $($conf).on("blur", function () {
-            alert("conf changed");
-            if (PassMatch($pass,$conf)) {
-                $conf.addClass("inputSuccess3");
-            } else {
-                $conf.removeClass("inputSuccess3");
-                $conf.addClass("inputError3");
-            }
-        });
-        $("input").on("blur", function () {
-            $.post("/account/UserNameExists", $email.val(), function (result) {
-                if (result.exists && PassMatch($pass,$conf) && IsEmail($email)) {
-                    $("submit").removeAttr("disabled");
+    <script>
+        $(function() {
+            var $pass = $("#pass");
+            var $conf = $("#conf");
+            var $email = $("#email");
+
+            $email.on("blur", function() {
+                alert("email changed");
+                if (IsEmail($email)) {
+                    $email.addClass("inputSuccess3");
+                } else {
+                    $email.removeClass("inputSuccess3");
+                    $email.addClass("inputError3");
                 }
             });
+
+            $($conf).on("blur", function() {
+                alert("conf changed");
+                if (PassMatch($pass, $conf)) {
+                    $conf.addClass("inputSuccess3");
+                } else {
+                    $conf.removeClass("inputSuccess3");
+                    $conf.addClass("inputError3");
+                }
+            });
+            $("input").on("blur", function() {
+                $.post("/account/UserNameExists", { username: $email.val() }, function(result) {
+                    console.log(result.exists && PassMatch($pass, $conf) && IsEmail($email));
+                    if (result.exists && PassMatch($pass, $conf) && IsEmail($email)) {
+                        $("submit").removeAttr("disabled");
+                    }
+                });
+            });
         });
-    });
-    function IsEmail(email) {
-        var regex = /^([\w-\.]+@@([\w-]+\.)+[\w-]{2,4})?$/;
-        return regex.test(email);
-    }
-    function PassMatch($pass,$conf) {
-        if ($pass.val() == $conf.val()) {
-            return true;
+
+        function IsEmail(email) {
+            var regex = /^([\w-\.]+@@([\w-]+\.)+[\w-]{2,4})?$/;
+            return regex.test(email);
         }
-        return false;
-    }
-</script>  
+
+        function PassMatch($pass, $conf) {
+            if ($pass.val() == $conf.val()) {
+                return true;
+            }
+            return false;
+        }
+    </script>  
 }
 
 
