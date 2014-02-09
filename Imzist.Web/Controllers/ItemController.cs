@@ -16,7 +16,6 @@ namespace Imzist.Web.Controllers
         [HttpGet]
         public ActionResult Index(int id)
         {
-            
             using (var dbcontext = new ImzistEntities())
             {
                 IEnumerable<Item> items = dbcontext.Items.Include(it=>it.Images);
