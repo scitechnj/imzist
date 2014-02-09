@@ -18,7 +18,6 @@ namespace Imzist.Logic
                 return db.Items.Where(i => i.Flagged == true);
             }
         }
-
         public IEnumerable<Item> UserItems(Guid id)
         {
             using (var db = new ImzistEntities())
@@ -26,7 +25,6 @@ namespace Imzist.Logic
                 return db.Items.Where(i => i.UserId == id);
             }
         }
-
         public IEnumerable<Item> LocationBasedItems(int locationId)
         {
             using (var db = new ImzistEntities())
@@ -37,7 +35,6 @@ namespace Imzist.Logic
                 return items.Where(i => i.Location.Id == locationId).ToList();
             }
         }
-
         public IEnumerable<Item> CategoryBasedItems(string categoryName, int locationId)
         {
             using (var db = new ImzistEntities())
@@ -46,7 +43,6 @@ namespace Imzist.Logic
                 return items.Where(i => i.Category.Name == categoryName && i.Location.Id == locationId).ToList();
             }
         }
-
         public IEnumerable<Category> Categories()
         {
             using (var db = new ImzistEntities())
@@ -61,7 +57,6 @@ namespace Imzist.Logic
                 return db.Categories.FirstOrDefault(c => c.Id == id);
             }
         }
-
         public IEnumerable<Location> Locations()
         {
             using (var db = new ImzistEntities())

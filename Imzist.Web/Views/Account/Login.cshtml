@@ -1,8 +1,12 @@
-﻿@model dynamic
-
-@{
-    ViewBag.Title = "title";
-    Layout = "_Layout";
-}
-
-<h2>title</h2>
+﻿<div class="container" style="margin-top: 200px;">
+    <div class="row">
+        <div class="col-md-12">
+            <form method="POST">
+                <input name="username" placeholder="Username"/>
+                <input name="password" placeholder="Password"/>
+                <input class="btn" type="submit" value="Submit"/>
+            </form>
+        </div>
+        <p>Dont have an account signup @Html.ActionLink("Here","SignUp","Account")</p>
+    </div>
+</div>
