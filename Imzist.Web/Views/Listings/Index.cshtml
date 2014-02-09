@@ -45,7 +45,7 @@ else
                             <hr style="border-color: black; height: 1px; margin: 4px;"/>
                             @foreach (Category category in @Model.Categories)
                             {
-                                <li><a href="/Listings/Index?category=@category.Name">@category.Name</a></li>
+                                <li><a href="/Views/Listings/Index?category=@category.Name">@category.Name</a></li>
                                 if (category != Model.Categories.Last())
                                 {
                                     <hr style="border-color: black; height: 1px; margin: 4px;"/>
