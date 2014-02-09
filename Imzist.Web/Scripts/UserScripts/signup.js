@@ -23,12 +23,13 @@
             $conf.addClass("inputError3");
         }
     });
-    $("input").on("keyup", function () {
+    $("input").on("mouseleave", function () {
         if (PassMatch($pass, $conf) && IsEmail($email)) {
             $.post("/account/UserNameExists", { username: $email.val() }, function (result) {
                 if (result.exists == "false") {
                     $submit.removeAttr("disabled");
                 } else {
+                    $submit.attr("disabled", "disabled");
                     //add error message...
                 }
             });
