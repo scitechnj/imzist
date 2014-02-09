@@ -11,9 +11,9 @@ namespace Imzist.Logic
 {
     public static class ImageHelper
     {
-        public static void ThumbnailMaker(string filelocation, string outputPath, int newPixelHeight)
+        public static void ThumbnailMaker(Stream image, string outputPath, int newPixelHeight)
         {
-            using (Image originalImage = Image.FromFile(filelocation))
+            using (Image originalImage = Image.FromStream(image))
             {
                 int newWidth = (originalImage.Width * newPixelHeight) / originalImage.Height;
                 using (Bitmap blankCanvas = new Bitmap(newWidth, newPixelHeight))
@@ -27,9 +27,38 @@ namespace Imzist.Logic
             }
 
         }
-        //public static bool IsValidImage(Stream image)
-        //{
-        //    image
-        //}
+        public static bool IsValidImage(Stream imageStream)
+        {
+            if (imageStream.Length > 0)
+            {
+                byte[] header = new byte[4]; // Change size if needed.
+                string[] imageHeaders = new[]{
+                "\xFF\xD8", // JPEG
+                "BM",       // BMP
+                "GIF",      // GIF
+                Encoding.ASCII.GetString(new byte[]{137, 80, 78, 71})}; // PNG
+
+                imageStream.Read(header, 0, header.Length);
+
+                bool isImageHeader = imageHeaders.Any(str => Encoding.ASCII.GetString(header).StartsWith(str));
+                if (isImageHeader)
+                {
+                    try
+                    {
+                        Image.FromStream(imageStream).Dispose();
+                        imageStream.Close();
+                        return true;
+                    }
+
+                    catch
+                    {
+
+                    }
+                }
+            }
+
+            imageStream.Close();
+            return false;
+        }
     }
 }
