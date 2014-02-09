@@ -3,18 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Imzist.Data;
+using Imzist.Logic;
 using Imzist.Web.Helpers;
+using Imzist.Web.Models;
 
 namespace Imzist.Web.Controllers
 {
     public class ListingsController : Controller
     {
-        public ActionResult Index()
-        {
-            var location = LocationResolver.GetLocation();
-            ViewBag.Location = location.Name;
-            return View();
-        }
+        private ImzistDb _imzistDb = new ImzistDb();
 
+        public ActionResult Index(string category)
+        {
+            ListingsViewModel lvm = new ListingsViewModel();
+            lvm.Categories = _imzistDb.Categories();
+
+            if (String.IsNullOrEmpty(category))
+            {
+                lvm.Items = _imzistDb.LocationBasedItems(LocationResolver.GetLocation().Id);
+            }
+            else
+            {
+                lvm.Items = _imzistDb.CategoryBasedItems(category, LocationResolver.GetLocation().Id);
+            }
+
+            return View(lvm);
+        }
     }
 }
