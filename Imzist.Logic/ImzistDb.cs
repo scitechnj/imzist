@@ -17,7 +17,7 @@ namespace Imzist.Logic
             {
                 return db.Items.Where(i => i.Flagged == true);
             }
-        } 
+        }
 
         public IEnumerable<Item> UserItems(Guid id)
         {
@@ -26,27 +26,24 @@ namespace Imzist.Logic
                 return db.Items.Where(i => i.UserId == id);
             }
         }
- 
-        public IEnumerable<Item> LocationBasedItems(HttpContextBase context)
+
+        public IEnumerable<Item> LocationBasedItems(int locationId)
         {
             using (var db = new ImzistEntities())
             {
-                string location = context.Session["location"].ToString();
-//                var items = db.Items.Where(i => i.Location.Name == location).ToList();
+                //                var items = db.Items.Where(i => i.Location.Name == location).ToList();
                 var items = db.Items.Include(i => i.Images);
 
-                return items.Where(i => i.Location.Name == location).ToList();
+                return items.Where(i => i.Location.Id == locationId).ToList();
             }
         }
 
-        public IEnumerable<Item> CategoryBasedItems(string category, HttpContextBase context)
+        public IEnumerable<Item> CategoryBasedItems(string categoryName, int locationId)
         {
             using (var db = new ImzistEntities())
             {
-                string location = context.Session["location"].ToString();
                 var items = db.Items.Include(i => i.Images);
-
-                return items.Where(i => i.Category.Name == category && i.Location.Name == location).ToList();
+                return items.Where(i => i.Category.Name == categoryName && i.Location.Id == locationId).ToList();
             }
         }
 
@@ -56,7 +53,7 @@ namespace Imzist.Logic
             {
                 return db.Categories.ToList();
             }
-        } 
+        }
         public Category Category(int id)
         {
             using (var db = new ImzistEntities())
@@ -71,7 +68,7 @@ namespace Imzist.Logic
             {
                 return db.Locations;
             }
-        } 
+        }
         public Location Location(int id)
         {
             using (var db = new ImzistEntities())

@@ -14,20 +14,20 @@ namespace Imzist.Web.Controllers
     {
         private ImzistDb _imzistDb = new ImzistDb();
 
-        public ActionResult Index(string category = null)
+        public ActionResult Index(string category)
         {
             ListingsViewModel lvm = new ListingsViewModel();
             lvm.Categories = _imzistDb.Categories();
 
-            if (category == null)
+            if (String.IsNullOrEmpty(category))
             {
-                lvm.Items = _imzistDb.LocationBasedItems(HttpContext);
+                lvm.Items = _imzistDb.LocationBasedItems(LocationResolver.GetLocation().Id);
             }
             else
             {
-                lvm.Items = _imzistDb.CategoryBasedItems(category, HttpContext);
+                lvm.Items = _imzistDb.CategoryBasedItems(category, LocationResolver.GetLocation().Id);
             }
-            
+
             return View(lvm);
         }
     }

@@ -13,22 +13,17 @@ namespace Imzist.Web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapRoute(
-                name: "Home",
-                url: "{controller}/{action}",
-                defaults: new { controller = "Home", action = "Index"}
-            );
 
             routes.MapRoute(
                 name: "Listings",
-                url: "{location}/{controller}/{action}/{id}",
-                defaults: new { controller = "Listings", action = "Index", id = UrlParameter.Optional, location="" }
+                url: "{location}/listings/{category}",
+                defaults: new { controller = "Listings", action = "Index" }
             );
 
             routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                url: "{location}/{controller}/{action}/{id}",
+                defaults: new { location="", controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
         }
     }
