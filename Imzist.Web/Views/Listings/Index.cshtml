@@ -1,7 +1,8 @@
 ﻿@using System.Collections
 @using System.Data.Entity
 @using Imzist.Data
-@model Imzist.Web.Models.ListingsViewModel 
+@using Imzist.Web.Helpers
+@model Imzist.Web.Models.ListingsViewModel
 
 @section styles
 {
@@ -24,40 +25,31 @@
     </style>
 }
 
-@{ string location;}
-
-@if (this.Context.Session["location"] != null)
-{
-    location = this.Context.Session["location"].ToString();
-}
-else
-{
-    location = "";
-}
-
 <div class="container">
     <div class="row">
         <div class="col-lg-1">
-                <div class="bs-sidebar affix" id="sidebar" data-spy="affix" data-offset-top="60" data-offset-bottom="200">
-                    <div class="bs-sidebar affix" id="stickySidebar" style="background-color: #f0eeec; padding: 4px; padding-left: 8px; padding-right: 8px; margin-top: 70px; border-radius: 15px; width: 120px; margin-left: 0;">
-                        <ul id="categories" class="nav bs-sidenav nav-pills nav-stacked">
-                            <li><a href="/Listings/Index">All</a></li>
-                            <hr style="border-color: black; height: 1px; margin: 4px;"/>
-                            @foreach (Category category in @Model.Categories)
+            <div class="bs-sidebar affix" id="sidebar" data-spy="affix" data-offset-top="60" data-offset-bottom="200">
+                <div class="bs-sidebar affix" id="stickySidebar" style="background-color: #f0eeec; padding: 4px; padding-left: 8px; padding-right: 8px; margin-top: 70px; border-radius: 15px; width: 120px; margin-left: 0;">
+                    <ul id="categories" class="nav bs-sidenav nav-pills nav-stacked">
+                        <li>@Html.RouteLink("All",new {location = LocationResolver.GetLocation().Name, controller = "Listings", action="Index"})</li>
+                        <hr style="border-color: black; height: 1px; margin: 4px;" />
+                        @foreach (Category category in @Model.Categories)
                             {
-                                <li><a href="/Views/Listings/Index?category=@category.Name">@category.Name</a></li>
+                            <li>@Html.RouteLink(category.Name,new {category = category.Name, location = LocationResolver.GetLocation().Name, controller = "Listings", action="Index"})</li>
                                 if (category != Model.Categories.Last())
                                 {
-                                    <hr style="border-color: black; height: 1px; margin: 4px;"/>
+                            <hr style="border-color: black; height: 1px; margin: 4px;" />
                                 }
                             }
-                        </ul>
-                    </div> <!--well bs-sidebar affix-->
-                </div> <!--col-md-3-->
+                    </ul>
+                </div>
+                <!--well bs-sidebar affix-->
+            </div>
+            <!--col-md-3-->
         </div>
         <div class="col-lg-11" id="listings">
             <div style="text-align: center;">
-                <h1 style="color:white; margin-top: 80px; margin-bottom: 20px;">@location</h1>
+                <h1 style="color: white; margin-top: 80px; margin-bottom: 20px;">@LocationResolver.GetLocation().Name</h1>
             </div>
             <div id="allItems">
                 @foreach (Item item in @Model.Items)
@@ -75,14 +67,19 @@ else
                             <img class="img-rounded pull-left" src="@image" style="width: 90px; height: 90px; margin-right: 20px;"/>
                             <p class="pull-right" style="margin-right: 40px; margin-top: 15px;">@item.Description</p>
                             <div>
-                                <div class="col-md-3"><h4>@item.Title</h4></div>
-                                <div class="col-md-3"><h5>@item.PostedDate</h5></div>
+                                <div class="col-md-3">
+                                    <h4>@item.Title</h4>
+                                </div>
+                                <div class="col-md-3">
+                                    <h5>@item.PostedDate</h5>
+                                </div>
                             </div>
                         </div>
                     </div>
-                }      
+                }
             </div>
-        </div> <!--row-->
+        </div>
+        <!--row-->
         <div class="col-md-4"></div>
     </div>
 </div>
