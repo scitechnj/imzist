@@ -133,6 +133,7 @@
     </Compile>
     <Compile Include="Helpers\LocationResolver.cs" />
     <Compile Include="LocationFilterAttribute.cs" />
+    <Compile Include="Models\ItemViewModel.cs" />
     <Compile Include="Models\AddListingViewModel.cs" />
     <Compile Include="Models\ListingsViewModel.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />

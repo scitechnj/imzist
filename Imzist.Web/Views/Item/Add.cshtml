@@ -6,7 +6,7 @@
 { 
        
     @Html.Hidden("Item.UserId", Model.UserId)
-
+    
     @Html.DropDownList("Item.CategoryId", Model.Categories.Select(c => new SelectListItem { Text = c.Name, Value = c.Id.ToString() }))
     
     @Html.TextBox("Item.Title", String.Empty, new { placeholder = "Title", name = "Title" })

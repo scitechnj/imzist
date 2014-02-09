@@ -26,7 +26,7 @@ namespace Imzist.Web.Controllers
             {
                 IEnumerable<Item> items = dbcontext.Items.Include(it => it.Images);
                 Item item = items.FirstOrDefault(i => i.Id == id);
-                return View(item);
+                return View(new ItemViewModel(){Item = item});
             }
         }
 
