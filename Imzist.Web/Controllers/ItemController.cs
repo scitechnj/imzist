@@ -6,26 +6,22 @@ using System.Web;
 using System.Web.Mvc;
 using Imzist.Data;
 using System.Data.Entity;
+using Imzist.Web.Models;
 
 namespace Imzist.Web.Controllers
 {
     public class ItemController : Controller
     {
-        //
-        // GET: /Item/
         [HttpGet]
         public ActionResult Index(int id)
         {
-            
+            ItemViewModel ivm = new ItemViewModel();
             using (var dbcontext = new ImzistEntities())
             {
                 IEnumerable<Item> items = dbcontext.Items.Include(it=>it.Images);
-                Item item = items.FirstOrDefault(i => i.Id == id);
-                return View(item);
+                ivm.Item = items.FirstOrDefault(i => i.Id == id);
+                return View(ivm);
             }
-            
-            
         }
-
     }
 }
