@@ -26,8 +26,13 @@
 	font-weight: 300;
 }
 
-* {
-	position: relative;
+ * {
+	position: static;
+} 
+
+.col-sm-2.active-menu,
+#special-active-menu-undefined {
+    position: relative !important;
 }
 
 .breaker {
