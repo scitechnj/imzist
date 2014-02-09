@@ -1,30 +1,30 @@
 ﻿@using System.Collections
 @using Imzist.Web.Helpers
 @model Imzist.Web.Models.AddListingViewModel
-<div class="row" style="padding-top:150px;padding-left:50px;">
-@using (Html.BeginForm("Add", "Item", new { location = LocationResolver.GetLocation().Name }, FormMethod.Post, new { enctype = "multipart/form-data" }))
-{ 
-       
-    @Html.Hidden("Item.UserId", Model.UserId)
-    
-    @Html.DropDownList("Item.CategoryId", Model.Categories.Select(c => new SelectListItem { Text = c.Name, Value = c.Id.ToString() }))
-    
-    @Html.TextBox("Item.Title", String.Empty, new { placeholder = "Title", name = "Title" })
-    
-    @Html.TextArea("Item.Description", new { placeholder = "Description" })
-    
-    <select name="expirationDays">
-        <option value="7">7 Days</option>
-        <option value="14">14 Days</option>
-        <option value="30">30 Days</option>
-    </select>
-    
-    <input type="file" name="Images[0]" />
-    <input type="file" name="Images[1]" />
-    <input type="file" name="Images[2]" />
-    <input type="file" name="Images[3]" />
-    <input type="file" name="Images[4]" />
-     
-    <input type="submit" class="btn btn-sucess" value="Save" />
-}
-    </div>
+<div class="row" style="padding-top: 150px; padding-left: 50px;">
+
+    <form method="POST" action="/@LocationResolver.GetLocation().Name/Item/Add" enctype="multipart/form-data">
+        <input type="hidden" name="Item.UserId" value="@Model.UserId"/>
+        <select name="Item.CategoryId">
+            @foreach (var category in Model.Categories)
+            {
+                <option value="@category.Id">@category.Name</option>
+            }
+            <input type="text" name="Item.Title" placeholder="Title" />
+            <textarea name="Item.Description" placeholder="Description"></textarea>
+            <select name="expirationDays">
+                <option value="7">7 Days</option>
+                <option value="14">14 Days</option>
+                <option value="30">30 Days</option>
+            </select>
+            <input type="file" name="Images[0]" />
+            <input type="file" name="Images[1]" />
+            <input type="file" name="Images[2]" />
+            <input type="file" name="Images[3]" />
+            <input type="file" name="Images[4]" />
+
+            <input type="submit" class="btn btn-sucess" value="Save" />
+
+        </select>
+    </form>
+</div>
