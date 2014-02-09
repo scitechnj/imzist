@@ -27,6 +27,7 @@ namespace Imzist.Logic
             }
 
         }
+
         public static bool IsValidImage(Stream imageStream)
         {
             if (imageStream.Length > 0)
@@ -60,5 +61,11 @@ namespace Imzist.Logic
             imageStream.Close();
             return false;
         }
+
+        public static string RenameImageFile(string currentFileName)
+        {
+            return Guid.NewGuid().ToString() + Path.GetExtension(currentFileName);
+        }
+
     }
 }

@@ -17,7 +17,7 @@ namespace Imzist.Web
             routes.MapRoute(
                 name: "Listings",
                 url: "{location}/listings/{category}",
-                defaults: new { controller = "Listings", action = "Index" }
+                defaults: new { controller = "Listings", action = "Index", category = UrlParameter.Optional }
             );
 
             routes.MapRoute(
