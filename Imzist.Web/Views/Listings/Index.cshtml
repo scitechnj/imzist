@@ -31,16 +31,16 @@
             <div class="bs-sidebar affix" id="sidebar" data-spy="affix" data-offset-top="60" data-offset-bottom="200">
                 <div class="bs-sidebar affix" id="stickySidebar" style="background-color: #f0eeec; padding: 4px; padding-left: 8px; padding-right: 8px; margin-top: 70px; border-radius: 15px; width: 120px; margin-left: 0;">
                     <ul id="categories" class="nav bs-sidenav nav-pills nav-stacked">
-                        <li>@Html.RouteLink("All",new {location = LocationResolver.GetLocation().Name, controller = "Listings", action="Index"})</li>
+                        <li><a href="/@LocationResolver.GetLocation().Name/Listings">All</a></li>
                         <hr style="border-color: black; height: 1px; margin: 4px;" />
                         @foreach (Category category in @Model.Categories)
-                            {
+                        {
                             <li>@Html.RouteLink(category.Name,new {category = category.Name, location = LocationResolver.GetLocation().Name, controller = "Listings", action="Index"})</li>
-                                if (category != Model.Categories.Last())
-                                {
-                            <hr style="border-color: black; height: 1px; margin: 4px;" />
-                                }
+                            if (category != Model.Categories.Last())
+                            {
+                                <hr style="border-color: black; height: 1px; margin: 4px;" />
                             }
+                        }
                     </ul>
                 </div>
                 <!--well bs-sidebar affix-->
