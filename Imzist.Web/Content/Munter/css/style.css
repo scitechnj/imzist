@@ -633,3 +633,14 @@ body {
 .navigation-slide {
 	cursor: pointer;
 }
+
+
+.valid-success {
+    background-color: lightgreen;
+    border: 2px solid green;
+}
+
+.valid-error {
+    background-color: lightcoral;
+    border: 2px solid red;
+}

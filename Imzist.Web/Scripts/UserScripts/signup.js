@@ -3,46 +3,75 @@
     var $conf = $("#conf");
     var $email = $("#email");
     var $submit = $("#submit");
-    $email.on("keyup", function () {
-        if (IsEmail($email)) {
-            $email.addClass("inputSuccess3");
-            $email.removeClass("inputError3");
-        } else {
-            $email.removeClass("inputSuccess3");
-            $email.addClass("inputError3");
-        }
 
+    $email.on("keyup mouseleave", function () {
 
+        ValidEmail($email, function(isValid) {
+            if (isValid) {
+                ValidationSuccess($email);
+            } else {
+                ValidationError($email);
+            }
+        });
     });
-    $($conf).on("keyup", function () {
-        if (PassMatch($pass, $conf)) {
-            $conf.addClass("inputSuccess3");
-            $conf.removeClass("inputError3");
+    
+    $pass.on("keyup mouseleave", function () {
+        if (ValidPassword($pass)) {
+            ValidationSuccess($pass);
+            $conf.removeAttr("disabled");
         } else {
-            $conf.removeClass("inputSuccess3");
-            $conf.addClass("inputError3");
+            ValidationError($pass);
+            $conf.attr("disabled", "disabled");
+        }
+    });
+    $($conf).on("keyup mouseleave", function () {
+        if (PassMatch($pass, $conf)) {
+            ValidationSuccess($conf);
+        } else {
+            ValidationError($conf);
         }
     });
     $("input").on("mouseleave", function () {
-        if (PassMatch($pass, $conf) && IsEmail($email)) {
-            $.post("/account/UserNameExists", { username: $email.val() }, function (result) {
-                if (result.exists == "false") {
+
+        ValidEmail($email, function(isValid) {
+            if (!isValid) {
+                $submit.attr("disabled", "disabled");
+            } else {
+                if (PassMatch($pass, $conf)) {
                     $submit.removeAttr("disabled");
                 } else {
                     $submit.attr("disabled", "disabled");
-                    //add error message...
                 }
-            });
-        }
+            }
+        });
     });
 });
-function IsEmail(email) {
-    var regex = /^([0-9a-zA-Z]([-\.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/;
-    return regex.test(email.val());
+function ValidPassword($element) {
+    var regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,10}$/;
+    return regex.test($element.val());
 }
 function PassMatch($pass, $conf) {
-    if ($pass.val() != "" && $pass.val() == $conf.val()) {
+    if ($pass.val() !== "" && $pass.val() == $conf.val()) {
         return true;
     }
     return false;
+}
+function ValidationError($element) {
+    $element.addClass("valid-error");
+    $element.removeClass("valid-success");
+}
+function ValidationSuccess($element) {
+    $element.addClass("valid-success");
+    $element.removeClass("valid-error");
+}
+function ValidEmail($email, callback) {
+    var regex = /^([0-9a-zA-Z]([-\.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/;
+    if (regex.test($email.val())) {
+        $.post("/account/UserNameExists", { username: $email.val() }, function (result) {
+            //return result.exists === "false";
+            callback(!result.exists);
+        });
+    }
+    
+
 }

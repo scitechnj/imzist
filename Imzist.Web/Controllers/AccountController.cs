@@ -63,7 +63,7 @@ namespace Imzist.Web.Controllers
         [HttpPost]
         public ActionResult UserNameExists(string username)
         {
-            return Membership.GetUser(username) == null ? Json(new {exists = "false"}) : Json(new {exists ="true"});
+            return Json(new {exists = Membership.GetUser(username) != null});
         }
     }
 }
