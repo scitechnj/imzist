@@ -40,7 +40,7 @@
 			            <li class="col-12 col-sm-2 dropdown" id="menu-link-2">
 			                <a id="menu-link-2" href="#" title="Next Section" class="dropdown-toggle" data-toggle="dropdown">
 			                    <span class="icon icon-map-marker"></span> <span class="text">locations</span>
-@*			                    <b class="caret"></b>*@
+			                    @*			                    <b class="caret"></b>*@
 			                </a>
 			                <ul class="dropdown-menu" id="dropdown-menu">
 			                    <li><a href="/Brooklyn/Listings">Brooklyn</a></li>
@@ -49,16 +49,28 @@
                                 
 			                </ul>
 			            </li>
+                        <li class="col-12 col-sm-2 dropdown" id="menu-link-3">
+			                <a id="menu-link-3" href="#" title="Next Section" class="dropdown-toggle" data-toggle="dropdown">
+			                    <span class="icon icon-edit"></span> <span class="text">post</span>
+@*			                    <b class="caret"></b>*@
+			                </a>
+			                <ul class="dropdown-menu" id="dropdown-menu">
+			                    <li><a href="/Brooklyn/Item/Add">Brooklyn</a></li>
+			                    <li><a href="/Lakewood/Item/Add">Lakewood</a></li>
+			                    <li><a href="/Monsey/Item/Add">Monsey</a></li>
+                                
+			                </ul>
+			            </li>
 			           
-                        <li class="col-12 col-sm-2"><a id="menu-link-4" href="#" title="Next Section"><span class="icon icon-envelope"></span> <span class="text">Contact</span></a></li>
-			            <li class="col-12 col-sm-2"><a id="menu-link-5" href="#" title="Next Section"><span class="icon icon-user"></span> <span class="text">The Team</span></a></li>
+                        <li class="col-12 col-sm-2"><a id="menu-link-4" href="#" title="Next Section"><span class="icon icon-envelope"></span> <span class="text">contact</span></a></li>
+			            <li class="col-12 col-sm-2"><a id="menu-link-5" href="#" title="Next Section"><span class="icon icon-user"></span> <span class="text">the team</span></a></li>
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <li class="col-12 col-sm-2"><a id="menu-link-6" href="/account/logout" title="Next Section"><span class="icon icon-remove-sign"></span> <span class="text">Logout</span></a></li>
+                            <li class="col-12 col-sm-2"><a id="menu-link-6" href="/account/logout" title="Next Section"><span class="icon icon-remove-sign"></span> <span class="text">logout</span></a></li>
                         }
                         else
                         {
-                             <li class="col-12 col-sm-2"><a id="menu-link-3" href="/Account/Login" title="Next Section"><span class="icon icon-laptop"></span> <span class="text">Login</span></a></li>
+                             <li class="col-12 col-sm-2"><a id="menu-link-3" href="/Account/Login" title="Next Section"><span class="icon icon-laptop"></span> <span class="text">login</span></a></li>
                         }
 				        <!-- <li data-slide="3" class="col-12 col-sm-2"><a id="menu-link-3" href="#slide-3" title="Next Section"><span class="icon icon-briefcase"></span> <span class="text">PORTFOLIO</span></a></li>
 				        <li data-slide="4" class="col-12 col-sm-2"><a id="menu-link-4" href="#slide-4" title="Next Section"><span class="icon icon-gears"></span> <span class="text">PROCESS</span></a></li>
