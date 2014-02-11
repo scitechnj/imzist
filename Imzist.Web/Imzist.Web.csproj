@@ -151,6 +151,7 @@
     <Content Include="bin\System.Web.WebPages.Deployment.dll" />
     <Content Include="bin\System.Web.WebPages.dll" />
     <Content Include="bin\System.Web.WebPages.Razor.dll" />
+    <Content Include="Content\Login.css" />
     <Content Include="Content\Munter\css\bootstrap.min.css" />
     <Content Include="Content\Munter\css\font-awesome.min.css" />
     <Content Include="Content\Munter\css\style.css" />

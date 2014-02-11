@@ -5,13 +5,13 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="84c04a34aec74944902bff90410a1bfe" Name="Diagram1">
-        <EntityTypeShape EntityType="ImzistModel.Category" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
         <EntityTypeShape EntityType="ImzistModel.Image" Width="1.5" PointX="5.25" PointY="1.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ImzistModel.Location" Width="1.5" PointX="0.75" PointY="5.875" IsExpanded="true" />
         <EntityTypeShape EntityType="ImzistModel.Item" Width="1.5" PointX="2.875" PointY="1.625" />
-        <AssociationConnector Association="ImzistModel.FK__Items__CategoryI__08B54D69" />
         <AssociationConnector Association="ImzistModel.FK__Images__ItemId__0E6E26BF" />
         <AssociationConnector Association="ImzistModel.FK__Items__LocationI__09A971A2" />
+        <EntityTypeShape EntityType="ImzistModel.Category" Width="1.5" PointX="8.2138639875752233" PointY="4.5660833886666614" />
+        <AssociationConnector Association="ImzistModel.FK__Items__CategoryI__08B54D69" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

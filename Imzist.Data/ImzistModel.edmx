@@ -100,14 +100,9 @@
     <edmx:ConceptualModels>
       <Schema Namespace="ImzistModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="ImzistEntities" p1:LazyLoadingEnabled="true">
-          <EntitySet Name="Categories" EntityType="ImzistModel.Category" />
           <EntitySet Name="Images" EntityType="ImzistModel.Image" />
           <EntitySet Name="Locations" EntityType="ImzistModel.Location" />
           <EntitySet Name="Items" EntityType="ImzistModel.Item" />
-          <AssociationSet Name="FK__Items__CategoryI__08B54D69" Association="ImzistModel.FK__Items__CategoryI__08B54D69">
-            <End Role="Category" EntitySet="Categories" />
-            <End Role="Item" EntitySet="Items" />
-          </AssociationSet>
           <AssociationSet Name="FK__Images__ItemId__0E6E26BF" Association="ImzistModel.FK__Images__ItemId__0E6E26BF">
             <End Role="Item" EntitySet="Items" />
             <End Role="Image" EntitySet="Images" />
@@ -116,15 +111,12 @@
             <End Role="Location" EntitySet="Locations" />
             <End Role="Item" EntitySet="Items" />
           </AssociationSet>
+          <EntitySet Name="Categories" EntityType="ImzistModel.Category" />
+          <AssociationSet Name="FK__Items__CategoryI__08B54D69" Association="ImzistModel.FK__Items__CategoryI__08B54D69">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Item" EntitySet="Items" />
+          </AssociationSet>
           </EntityContainer>
-        <EntityType Name="Category">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <NavigationProperty Name="Items" Relationship="ImzistModel.FK__Items__CategoryI__08B54D69" FromRole="Category" ToRole="Item" />
-        </EntityType>
         <EntityType Name="Image">
           <Key>
             <PropertyRef Name="Id" />
@@ -155,22 +147,10 @@
           <Property Type="Guid" Name="UserId" Nullable="false" />
           <Property Type="Int32" Name="CategoryId" Nullable="false" />
           <Property Type="Int32" Name="LocationId" Nullable="false" />
-          <NavigationProperty Name="Category" Relationship="ImzistModel.FK__Items__CategoryI__08B54D69" FromRole="Item" ToRole="Category" />
           <NavigationProperty Name="Images" Relationship="ImzistModel.FK__Images__ItemId__0E6E26BF" FromRole="Item" ToRole="Image" />
           <NavigationProperty Name="Location" Relationship="ImzistModel.FK__Items__LocationI__09A971A2" FromRole="Item" ToRole="Location" />
+          <NavigationProperty Name="Category" Relationship="ImzistModel.FK__Items__CategoryI__08B54D69" FromRole="Item" ToRole="Category" />
         </EntityType>
-        <Association Name="FK__Items__CategoryI__08B54D69">
-          <End Type="ImzistModel.Category" Role="Category" Multiplicity="1" />
-          <End Type="ImzistModel.Item" Role="Item" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Category">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Item">
-              <PropertyRef Name="CategoryId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Images__ItemId__0E6E26BF">
           <End Type="ImzistModel.Item" Role="Item" Multiplicity="1" />
           <End Type="ImzistModel.Image" Role="Image" Multiplicity="*" />
@@ -195,20 +175,32 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Items" Relationship="ImzistModel.FK__Items__CategoryI__08B54D69" FromRole="Category" ToRole="Item" />
+        </EntityType>
+        <Association Name="FK__Items__CategoryI__08B54D69">
+          <End Type="ImzistModel.Category" Role="Category" Multiplicity="1" />
+          <End Type="ImzistModel.Item" Role="Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ImzistModelStoreContainer" CdmEntityContainer="ImzistEntities">
-          <EntitySetMapping Name="Categories">
-            <EntityTypeMapping TypeName="ImzistModel.Category">
-              <MappingFragment StoreEntitySet="Categories">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Images">
             <EntityTypeMapping TypeName="ImzistModel.Image">
               <MappingFragment StoreEntitySet="Images">
@@ -237,6 +229,14 @@
                 <ScalarProperty Name="Flagged" ColumnName="Flagged" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="ImzistModel.Category">
+              <MappingFragment StoreEntitySet="Categories">
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

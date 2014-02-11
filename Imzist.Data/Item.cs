@@ -29,8 +29,8 @@ namespace Imzist.Data
         public int CategoryId { get; set; }
         public int LocationId { get; set; }
     
-        public virtual Category Category { get; set; }
         public virtual ICollection<Image> Images { get; set; }
         public virtual Location Location { get; set; }
+        public virtual Category Category { get; set; }
     }
 }
