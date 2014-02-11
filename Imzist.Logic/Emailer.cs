@@ -32,8 +32,7 @@ namespace Imzist.Logic
             }
             catch (Exception e)
             {
-
-                Console.WriteLine(e.Message);
+                //TODO: Please teach us logging!!!!
             }
         }
     }

@@ -18,8 +18,6 @@ namespace Imzist.Web.Controllers
 {
     public class ItemController : Controller
     {
-        //
-        // GET: /Item/
         public ActionResult Index(int id)
         {
             using (var dbcontext = new ImzistEntities())
@@ -30,10 +28,11 @@ namespace Imzist.Web.Controllers
             }
         }
 
+        [Authorize]
         public ActionResult Add()
         {
             var model = new AddListingViewModel();
-            model.UserId = Guid.NewGuid(); //(Guid)Membership.GetUser(User.Identity.Name).ProviderUserKey
+            model.UserId = (Guid) Membership.GetUser(User.Identity.Name).ProviderUserKey;
 
             using (var dbContext = new ImzistEntities())
             {
@@ -44,10 +43,11 @@ namespace Imzist.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult Add(Item item, int expirationDays)
         {
-            item.Location = LocationResolver.GetLocation();
-            item.UserId = Guid.Parse("88923831-E379-4FE3-8EDD-2342CF7727B5");
+            item.LocationId = LocationResolver.GetLocation().Id;
+            item.UserId = item.UserId;
             item.PostedDate = DateTime.Now;
             item.ExpirationDate = item.PostedDate.AddDays(expirationDays);
             foreach (string file in Request.Files)
