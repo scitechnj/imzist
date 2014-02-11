@@ -18,8 +18,6 @@ namespace Imzist.Web.Controllers
 {
     public class ItemController : Controller
     {
-        //
-        // GET: /Item/
         public ActionResult Index(int id)
         {
             using (var dbcontext = new ImzistEntities())
@@ -30,10 +28,11 @@ namespace Imzist.Web.Controllers
             }
         }
 
+        [Authorize]
         public ActionResult Add()
         {
             var model = new AddListingViewModel();
-            model.UserId = Guid.NewGuid(); //(Guid)Membership.GetUser(User.Identity.Name).ProviderUserKey
+            model.UserId = (Guid) Membership.GetUser(User.Identity.Name).ProviderUserKey;
 
             using (var dbContext = new ImzistEntities())
             {
@@ -44,6 +43,7 @@ namespace Imzist.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult Add(Item item, int expirationDays)
         {
             item.Location = LocationResolver.GetLocation();
