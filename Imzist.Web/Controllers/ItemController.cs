@@ -26,7 +26,7 @@ namespace Imzist.Web.Controllers
             {
                 IEnumerable<Item> items = dbcontext.Items.Include(it => it.Images);
                 Item item = items.FirstOrDefault(i => i.Id == id);
-                return View(new ItemViewModel(){Item = item});
+                return View(new ItemViewModel() {Item = item});
             }
         }
 
@@ -65,7 +65,7 @@ namespace Imzist.Web.Controllers
                 if (ImageHelper.IsValidImage(imageStream))
                 {
                     string newFileName = ImageHelper.RenameImageFile(imageFile.FileName);
-                    Image img = new Image { Name = newFileName };
+                    Image img = new Image {Name = newFileName};
                     imageFile.SaveAs(Path.Combine(Server.MapPath("~/content/images/Full"), newFileName));
                     ImageHelper.ThumbnailMaker(imageStream,
                                                Path.Combine(Server.MapPath("~/Content/Images/Thumbnail"), newFileName),
@@ -82,11 +82,13 @@ namespace Imzist.Web.Controllers
             {
                 dbContext.Items.Add(item);
                 dbContext.SaveChanges();
+                Emailer.SendEmail(User.Identity.Name, "Imzist Listing",
+                                  String.Format(
+                                      "Thank you for listing and item with us!\nYour listing will expire on {0}.",
+                                      item.ExpirationDate));
                 var newId = item.Id;
-                return RedirectToAction("Index", new { location = LocationResolver.GetLocation().Name, id = newId });
+                return RedirectToAction("Index", new {location = LocationResolver.GetLocation().Name, id = newId});
             }
-
-
         }
     }
 }
