@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using Imzist.Data;
+using Imzist.Logic;
 
 namespace Imzist.Web.Controllers
 {
@@ -55,6 +56,8 @@ namespace Imzist.Web.Controllers
                     Roles.CreateRole("User");
                 }
                 Roles.AddUserToRole(username, "User");
+                Emailer.SendEmail(username,"Welcome to Imzist","");
+                
                 return RedirectToAction("Login", "Account");
             }
             catch (Exception ex)
