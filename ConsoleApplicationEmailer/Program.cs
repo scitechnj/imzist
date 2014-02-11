@@ -19,6 +19,7 @@ namespace ConsoleApplicationEmailer
 
         public class Emailer
         {
+            
             public void SendEmail(string emailAddress, string subject, string body)
             {
                 var message = new MailMessage(new MailAddress("freeImzist@gmail.com"), new MailAddress(emailAddress))
