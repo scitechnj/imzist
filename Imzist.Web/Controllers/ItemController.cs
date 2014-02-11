@@ -30,6 +30,7 @@ namespace Imzist.Web.Controllers
             }
         }
 
+        [Authorize]
         public ActionResult Add()
         {
             var model = new AddListingViewModel();
@@ -43,6 +44,7 @@ namespace Imzist.Web.Controllers
             return View(model);
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult Add(Item item, int expirationDays)
         {
