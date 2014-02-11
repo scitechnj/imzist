@@ -52,32 +52,7 @@
                 <h1 style="color: white; margin-top: 80px; margin-bottom: 20px;">@LocationResolver.GetLocation().Name</h1>
             </div>
             <div id="allItems">
-                @foreach (Item item in @Model.Items)
-                {
-                    var image = "https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120";
-                    
-                    if (item.Images.FirstOrDefault() != null)
-                    {
-                        image = "/Content/images/thumbnail/" + item.Images.First().Name;
-                    }
-                    
-                    <div class="listItem" style="cursor: pointer; background: #f6f3e8; border-radius: 15px; padding-top: 10px; padding-bottom: 10px; margin-right: 25px; margin-bottom: 25px;">
-                        <div class="clearfix" style="padding-left: 30px; padding-top: 10px; padding-bottom: 10px;">
-                            @*                            <img class="img-rounded" src="@item.Images.FirstOrDefault()" style="width: 25px; height: 25px;"/>*@
-                            <img class="img-rounded pull-left" src="@image" style="height: 90px; margin-right: 20px;"/>
-                            <p class="pull-right" style="margin-right: 40px; margin-top: 15px;">@item.Description</p>
-                            <input hidden value="@item.Id"/>
-                            <div>
-                                <div class="col-md-3">
-                                    <h4>@item.Title</h4>
-                                </div>
-                                <div class="col-md-3">
-                                    <h5>@item.PostedDate</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
+                @{ Html.RenderPartial("_Item", Model); }
             </div>
         </div>
         <!--row-->
