@@ -1,5 +1,7 @@
 ﻿@using Imzist.Data
+@using Imzist.Web.Helpers
 @model Imzist.Web.Models.ItemViewModel 
+
 
 <div class="modal fade bs-modal-lg" id="contact" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" style="margin-top: 100px;">
     <div class="modal-dialog modal-lg">
@@ -21,8 +23,9 @@
                 </form>
             </div>
             <div class="modal-footer">
+                <input type="hidden"/>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Send</button>
+                <button id="sendEmailBtn" type="button" class="btn btn-primary">Send</button>
             </div>
         </div>
     </div>
@@ -58,4 +61,22 @@
             menu_focus(lis[1], 4);
         })
     </script>
+    <script>
+        $(function() {
+            var replyToAddress = $("#email").val();
+            var message = $("#message").val();
+            $("#sendEmailBtn").on('click', function() {
+//                $(this).attr("disabled", "disabled");
+                $.post('@LocationResolver.GetLocation().Name/item/sendEmail', { itemId: @Model.Item.Id , replyToAddress: replyToAddress , message : message }, function(data) {
+                    if (data.status) {
+                        alert("Your email has successfully been sent");
+                        $("#modal").modal("hide");
+                    } else {
+                        alert("There was a problem sending your email. Please try again later");
+                    }
+                });
+            });
+        })
+    </script>
+   
 }
