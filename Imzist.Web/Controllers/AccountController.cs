@@ -5,6 +5,9 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using Imzist.Data;
+using Imzist.Logic;
+using Imzist.Web.Models;
+using System.Data.Entity;
 
 namespace Imzist.Web.Controllers
 {
@@ -19,8 +22,9 @@ namespace Imzist.Web.Controllers
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
         }
+
         public ActionResult SignUp()
         {
             return View();
@@ -55,6 +59,8 @@ namespace Imzist.Web.Controllers
                     Roles.CreateRole("User");
                 }
                 Roles.AddUserToRole(username, "User");
+                Emailer.SendEmail(username, "Welcome to Imzist", "");
+
                 return RedirectToAction("Login", "Account");
             }
             catch (Exception ex)
@@ -69,5 +75,20 @@ namespace Imzist.Web.Controllers
         {
             return Json(new {exists = Membership.GetUser(username) != null});
         }
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult GetPosts(string username)
+        {
+            var model = new ListingsViewModel();
+            using (var dbContext = new ImzistEntities())
+            {
+                var userId = (Guid) Membership.GetUser(User.Identity.Name).ProviderUserKey;
+                model.Items = dbContext.Items.Include(item => item.Images).Where(item => item.UserId == userId).ToList();
+                return View(model);
+
+            }
+        }
     }
+    
 }

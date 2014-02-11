@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Emailer.cs" />
     <Compile Include="ImageHelper.cs" />
     <Compile Include="ImzistDb.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

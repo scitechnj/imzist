@@ -830,6 +830,8 @@
     <Content Include="Views\Listings\Index.cshtml" />
     <Content Include="Views\Item\Index.cshtml" />
     <Content Include="Views\Item\Add.cshtml" />
+    <Content Include="Views\Account\GetPosts.cshtml" />
+    <Content Include="Views\Shared\_Item.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

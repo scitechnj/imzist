@@ -4,7 +4,7 @@
     var $email = $("#email");
     var $submit = $("#submit");
 
-    $email.on("change keyup", function () {
+    $email.on("blur", function () {
 
         ValidEmail($email, function(isValid) {
             if (isValid) {
@@ -14,7 +14,15 @@
             }
         });
     });
-    $pass.on("change keyup", function () {
+    $email.on("keyup", function () {
+
+        ValidEmail($email, function (isValid) {
+            if (isValid) {
+                ValidationSuccess($email);
+            } 
+        });
+    });
+    $pass.on("blur", function () {
         if (ValidPassword($pass)) {
             ValidationSuccess($pass);
             $conf.removeAttr("disabled");
@@ -23,31 +31,33 @@
             $conf.attr("disabled", "disabled");
         }
     });
-    $($conf).on("change keyup", function () {
+    $pass.on("keyup", function () {
+        if (ValidPassword($pass)) {
+            ValidationSuccess($pass);
+        } 
+    });
+    $($conf).on("blur", function () {
         if (PassMatch($pass, $conf)) {
             ValidationSuccess($conf);
         } else {
             ValidationError($conf);
         }
     });
-    $("input").on("mouseleave", function () {
-
+    $($conf).on("keyup", function () {
+        if (PassMatch($pass, $conf)) {
+            ValidationSuccess($conf);
+        } 
+    });
+    $submit.on("click", function () {
         ValidEmail($email, function(isValid) {
-            if (!isValid) {
-                $submit.attr("disabled", "disabled");
-            } else {
-                if (PassMatch($pass, $conf)) {
-                    $submit.removeAttr("disabled");
-                } else {
-                    $submit.attr("disabled", "disabled");
-                }
-            }
+            if (isValid && PassMatch($pass,$conf)) {
+                $('form').submit();
+            } 
         });
     });
 });
 function ValidPassword($element) {
-    var regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,10}$/;
-    return regex.test($element.val());
+    return $element.val() != '';
 }
 function PassMatch($pass, $conf) {
     if ($pass.val() !== "" && $pass.val() == $conf.val()) {
