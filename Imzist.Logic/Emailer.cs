@@ -14,9 +14,9 @@ namespace Imzist.Logic
             var message = new MailMessage(new MailAddress("freeImzist@gmail.com"), new MailAddress(emailAddress))
             {
                 Subject = subject,
-                Body = body
+                Body = body,
             };
-
+            
             var smtp = new SmtpClient
             {
                 Host = "smtp.gmail.com",
