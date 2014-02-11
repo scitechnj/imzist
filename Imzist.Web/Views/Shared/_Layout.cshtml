@@ -48,13 +48,17 @@
                                 
 			                </ul>
 			            </li>
-			            <li class="col-12 col-sm-2"><a id="menu-link-3" href="/Account/Login" title="Next Section"><span class="icon icon-laptop"></span> <span class="text">Login</span></a></li>
+			           
                         <li class="col-12 col-sm-2"><a id="menu-link-4" href="#" title="Next Section"><span class="icon icon-envelope"></span> <span class="text">Contact</span></a></li>
 			            <li class="col-12 col-sm-2"><a id="menu-link-5" href="#" title="Next Section"><span class="icon icon-user"></span> <span class="text">The Team</span></a></li>
                         @if (User.Identity.IsAuthenticated)
-                                {
-                                    <li class="col-12 col-sm-2"><a id="menu-link-6" href="/account/logout" title="Next Section"><span class="icon icon-remove-sign"></span> <span class="text">Logout</span></a></li>
-                                }
+                        {
+                            <li class="col-12 col-sm-2"><a id="menu-link-6" href="/account/logout" title="Next Section"><span class="icon icon-remove-sign"></span> <span class="text">Logout</span></a></li>
+                        }
+                        else
+                        {
+                             <li class="col-12 col-sm-2"><a id="menu-link-3" href="/Account/Login" title="Next Section"><span class="icon icon-laptop"></span> <span class="text">Login</span></a></li>
+                        }
 				        <!-- <li data-slide="3" class="col-12 col-sm-2"><a id="menu-link-3" href="#slide-3" title="Next Section"><span class="icon icon-briefcase"></span> <span class="text">PORTFOLIO</span></a></li>
 				        <li data-slide="4" class="col-12 col-sm-2"><a id="menu-link-4" href="#slide-4" title="Next Section"><span class="icon icon-gears"></span> <span class="text">PROCESS</span></a></li>
 				        <li data-slide="5" class="col-12 col-sm-2"><a id="menu-link-5" href="#slide-5" title="Next Section"><span class="icon icon-heart"></span> <span class="text">CLIENTS</span></a></li>
