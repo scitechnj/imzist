@@ -25,9 +25,9 @@ namespace Imzist.Data
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<Category> Categories { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<Item> Items { get; set; }
+        public DbSet<Category> Categories { get; set; }
     }
 }

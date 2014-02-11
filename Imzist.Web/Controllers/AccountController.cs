@@ -14,6 +14,8 @@ namespace Imzist.Web.Controllers
         {
             return View();
         }
+
+        [Authorize]
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
@@ -41,6 +43,7 @@ namespace Imzist.Web.Controllers
             }
             return View();
         }
+
         [HttpPost]
         public ActionResult SignUp(string username, string password)
         {
@@ -60,6 +63,7 @@ namespace Imzist.Web.Controllers
                 return View();
             }
         }
+
         [HttpPost]
         public ActionResult UserNameExists(string username)
         {
