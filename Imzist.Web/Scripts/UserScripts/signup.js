@@ -4,7 +4,7 @@
     var $email = $("#email");
     var $submit = $("#submit");
 
-    $email.on("keyup mouseleave", function () {
+    $email.on("change keyup", function () {
 
         ValidEmail($email, function(isValid) {
             if (isValid) {
@@ -14,8 +14,7 @@
             }
         });
     });
-    
-    $pass.on("keyup mouseleave", function () {
+    $pass.on("change keyup", function () {
         if (ValidPassword($pass)) {
             ValidationSuccess($pass);
             $conf.removeAttr("disabled");
@@ -24,7 +23,7 @@
             $conf.attr("disabled", "disabled");
         }
     });
-    $($conf).on("keyup mouseleave", function () {
+    $($conf).on("change keyup", function () {
         if (PassMatch($pass, $conf)) {
             ValidationSuccess($conf);
         } else {
