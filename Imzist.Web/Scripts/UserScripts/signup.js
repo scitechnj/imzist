@@ -68,10 +68,8 @@ function ValidEmail($email, callback) {
     var regex = /^([0-9a-zA-Z]([-\.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/;
     if (regex.test($email.val())) {
         $.post("/account/UserNameExists", { username: $email.val() }, function (result) {
-            //return result.exists === "false";
             callback(!result.exists);
         });
     }
-    
-
+    callback(false);
 }
