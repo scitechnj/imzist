@@ -85,7 +85,7 @@ namespace Imzist.Web.Controllers
                 dbContext.SaveChanges();
                 Emailer.SendEmail(User.Identity.Name, "Imzist Listing",
                                   String.Format(
-                                      "Thank you for {0} with us!\nYour listing will expire on {1}.",
+                                      "Thank you for listing a {0} with us!\nYour listing will expire on {1}.",
                                       item.Title, item.ExpirationDate));
                 var newId = item.Id;
                 return RedirectToAction("Index", new {location = LocationResolver.GetLocation().Name, id = newId});
