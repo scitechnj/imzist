@@ -8,12 +8,12 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="contactLabel">Contact Poster</h4>
+                <h4 class="modal-title" id="contactLabel">Contact</h4>
             </div>
             <div class="modal-body">
                 <form role="form">
                     <div class="form-group">
-                        <label for="email">My Email Address</label>
+                        <label for="email">Email Address</label>
                         <input id="email" class="form-control" type="email"/>
                     </div>
                     <div class="form-group">
@@ -34,7 +34,7 @@
 <div class="container" style="margin-top: 100px;">
     <div class="row">
         <div class="col-2">
-            <button class="btn btn-primary btn-lg" data-toggle="modal" data-target=".bs-modal-lg" style="margin-top: 25px; display: block;">Contact Poster</button>
+            <button class="btn btn-primary btn-lg" data-toggle="modal" data-target=".bs-modal-lg" style="margin-top: 25px; display: block;">Contact</button>
         </div>
         <div class="col-10" style="color: white;">
             <h2>@Model.Item.Title</h2>
@@ -45,7 +45,7 @@
                 
                 @foreach(Image image in Model.Item.Images)
                 {
-                    <img src="~/Content/images/full/@image.Name" style="height: 200px; margin-right: 20px; margin-bottom: 20px;"/>
+                    <img src="~/Content/images/thumbnail/@image.Name" style="height: 200px; margin-right: 20px; margin-bottom: 20px;"/>
                 }
             </div>
 
@@ -63,20 +63,21 @@
     </script>
     <script>
         $(function() {
-            var replyToAddress = $("#email").val();
-            var message = $("#message").val();
-            $("#sendEmailBtn").on('click', function() {
-//                $(this).attr("disabled", "disabled");
-                $.post('@LocationResolver.GetLocation().Name/item/sendEmail', { itemId: @Model.Item.Id , replyToAddress: replyToAddress , message : message }, function(data) {
+            var replyToAddress = $('#email').val();
+            var message = $('#message').val();
+            console.log(message);
+                 $(this).attr("disabled", "disabled");
+                $.post('/@LocationResolver.GetLocation().Name/item/sendEmail', { itemId: @Model.Item.Id , replyToAddress: replyToAddress , message : message }, function(data) {
                     if (data.status) {
                         alert("Your email has successfully been sent");
                         $("#modal").modal("hide");
                     } else {
+                        $(this).removeAttr("disabled");
                         alert("There was a problem sending your email. Please try again later");
                     }
                 });
             });
-        })
+       
     </script>
    
 }

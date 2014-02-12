@@ -45,6 +45,7 @@
         <div class="col-sm-12 col-lg-12">
             <div class="account-wall" style="border-radius: 15px;">
                 <form method="POST" action="/@LocationResolver.GetLocation().Name/Item/Add" enctype="multipart/form-data" style="color: white; font-size: 150%;">
+                    <input type="hidden" name="Item.UserId" value="@Model.UserId"/>
                     <div class="col-lg-3">
                         <label for="Item.Title">Title</label>
                         <input type="text" class="form-control" name="Item.Title"/>
