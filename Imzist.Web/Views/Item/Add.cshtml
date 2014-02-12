@@ -46,8 +46,9 @@
             <div class="account-wall" style="border-radius: 15px;">
                 <form method="POST" action="/@LocationResolver.GetLocation().Name/Item/Add" enctype="multipart/form-data" style="color: white; font-size: 150%;">
                     <div class="col-lg-3">
+                        <input type="hidden" name="Item.UserId" value="@Model.UserId"/>
                         <label for="Item.Title">Title</label>
-                        <input type="text" class="form-control" name="Item.Title"/>
+                        <input id="itemTitle" type="text" class="form-control" name="Item.Title"/>
                         <label for="Item.CategoryId">Category</label>
                         <select class="form-control" name="Item.CategoryId">
                             @foreach (var category in Model.Categories)
@@ -75,7 +76,7 @@
                         <input type="file" name="Images[4]" style="margin-bottom: 17px;" />
                     </div>
                     <div class="col-lg-6 col-lg-offset-3" style="margin-top: 25px;">
-                        <button class="btn btn-primary btn-lg btn-block">Submit</button>
+                        <button id="submitButton" class="btn btn-primary btn-lg btn-block">Submit</button>
                     </div>
                 </form>
             </div>
@@ -83,12 +84,31 @@
     </div>
 </div>
 
+@*<embed src="/Content/20440__agfx__beep-pager.wav" autostart="false" width="0" height="0" id="error"*@
+@*    enablejavascript="true">*@
+
 @section scripts
 {
     <script>
-        $(function () {
+        $(function() {
             var lis = $('.nav > li');
             menu_focus(lis[2], 4);
-        })
+            
+            $('<audio id="error"><source src="/Content/20440__agfx__beep-pager.wav" type="audio/wav"></audio>').appendTo('body');
+
+            var count = 1;
+            $("#itemTitle").keydown(function () {
+                console.log(($("#itemTitle").val().length >= 50) + " - " + count++);
+                if ($("#itemTitle").val().length == 50) {
+                    $(this).val($(this).val().substring(0, 49));
+//                    $("#error")[0].play();
+                }
+            });
+        });
+        
+        function PlaySound(soundObj) {
+            var sound = document.getElementById(soundObj);
+            sound.Play();
+        }
     </script>
 }

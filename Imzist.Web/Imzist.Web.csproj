@@ -151,6 +151,7 @@
     <Content Include="bin\System.Web.WebPages.Deployment.dll" />
     <Content Include="bin\System.Web.WebPages.dll" />
     <Content Include="bin\System.Web.WebPages.Razor.dll" />
+    <Content Include="Content\20440__agfx__beep-pager.wav" />
     <Content Include="Content\glyphicons_free\glyphicons\png\glyphicons_000_glass.png" />
     <Content Include="Content\glyphicons_free\glyphicons\png\glyphicons_001_leaf.png" />
     <Content Include="Content\glyphicons_free\glyphicons\png\glyphicons_002_dog.png" />
