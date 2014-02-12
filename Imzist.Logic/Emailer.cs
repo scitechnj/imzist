@@ -20,7 +20,7 @@ namespace Imzist.Logic
                 Body = body
             };
 
-            if (replyToAddress != null)
+            if (!String.IsNullOrEmpty(replyToAddress))
             {
                 //@todo validate email 
                 message.ReplyToList.Add(replyToAddress);
