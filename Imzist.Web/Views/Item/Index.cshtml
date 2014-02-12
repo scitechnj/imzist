@@ -63,11 +63,12 @@
     </script>
     <script>
         $(function() {
-            var replyToAddress = $('#email').val();
-            var message = $('#message').val();
             $("#sendEmailBtn").on('click', function() {
-                $(this).attr("disabled", "disabled");
-                $.post('/@LocationResolver.GetLocation().Name/item/sendEmail', { itemId: @Model.Item.Id, replyToAddress: replyToAddress, message: message }, function(data) {
+                    var replyToAddress = $('#email').val();
+                    var message = $('#message').val();
+
+                    $(this).attr("disabled", "disabled");
+                    $.post('/@LocationResolver.GetLocation().Name/item/sendEmail', { itemId: @Model.Item.Id, replyToAddress: replyToAddress, message: message }, function(data) {
                     if (data.status) {
                         alert("Your email has successfully been sent");
                         $("#modal").modal("hide");
@@ -77,8 +78,8 @@
                     }
                 });
             });
-        })       
+        })
 
     </script>
    
-    }
+}
