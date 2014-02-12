@@ -42,6 +42,7 @@ namespace Imzist.Web.Controllers
             return View(model);
         }
 
+        [Authorize]
         [HttpPost]
         [Authorize]
         public ActionResult Add(Item item, int expirationDays)

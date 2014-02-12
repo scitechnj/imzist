@@ -12,38 +12,40 @@ namespace Imzist.Logic
         private const string OurEmailAddress = "freeImzist@gmail.com";
         private const string OurPassword = "scitech08701";
 
-        public static void SendEmail(string emailAddress, string subject, string body, string replyToAddress = OurEmailAddress)
+        public static void SendEmail(string emailAddress, string subject, string body,
+                                     string replyToAddress = OurEmailAddress)
         {
-            var message = new MailMessage(new MailAddress(OurEmailAddress), new MailAddress(emailAddress))
+            if (String.IsNullOrEmpty(replyToAddress))
             {
-                Subject = subject,
-                Body = body
-            };
-
-            if (!String.IsNullOrEmpty(replyToAddress))
-            {
-                //@todo validate email 
-                message.ReplyToList.Add(replyToAddress);
+                replyToAddress = OurEmailAddress;
             }
+            var message = new MailMessage(new MailAddress(OurEmailAddress), new MailAddress(emailAddress))
+                {
+                    Subject = subject,
+                    Body = body,
+                };
+            //@todo validate reply email address
+            message.ReplyToList.Add(replyToAddress);
+
 
             var smtp = new SmtpClient
-            {
-                Host = "smtp.gmail.com",
-                Port = 587,
-                UseDefaultCredentials = false,
-                Credentials = new System.Net.NetworkCredential(OurEmailAddress, OurPassword),
-                EnableSsl = true
-            };
+                {
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    UseDefaultCredentials = false,
+                    Credentials = new System.Net.NetworkCredential(OurEmailAddress, OurPassword),
+                    EnableSsl = true
+                };
 
             try
             {
                 smtp.Send(message);
             }
-            catch (Exception e)
+            catch (
+                Exception e)
             {
                 //TODO: Please teach us logging!!!!
             }
         }
-        
     }
 }

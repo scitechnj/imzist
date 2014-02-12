@@ -1,6 +1,6 @@
 ﻿@using Imzist.Data
 @using Imzist.Web.Helpers
-@model Imzist.Web.Models.ItemViewModel 
+@model Imzist.Web.Models.ItemViewModel
 
 
 <div class="modal fade bs-modal-lg" id="contact" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" style="margin-top: 100px;">
@@ -43,7 +43,7 @@
 
             <div class="images">
                 
-                @foreach(Image image in Model.Item.Images)
+                @foreach (Image image in Model.Item.Images)
                 {
                     <img src="~/Content/images/thumbnail/@image.Name" style="height: 200px; margin-right: 20px; margin-bottom: 20px;"/>
                 }
@@ -65,9 +65,9 @@
         $(function() {
             var replyToAddress = $('#email').val();
             var message = $('#message').val();
-            console.log(message);
-                 $(this).attr("disabled", "disabled");
-                $.post('/@LocationResolver.GetLocation().Name/item/sendEmail', { itemId: @Model.Item.Id , replyToAddress: replyToAddress , message : message }, function(data) {
+            $("#sendEmailBtn").on('click', function() {
+                $(this).attr("disabled", "disabled");
+                $.post('/@LocationResolver.GetLocation().Name/item/sendEmail', { itemId: @Model.Item.Id, replyToAddress: replyToAddress, message: message }, function(data) {
                     if (data.status) {
                         alert("Your email has successfully been sent");
                         $("#modal").modal("hide");
@@ -77,7 +77,8 @@
                     }
                 });
             });
-       
+        })       
+
     </script>
    
-}
+    }
