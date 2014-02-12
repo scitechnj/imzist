@@ -14,12 +14,14 @@ namespace Imzist.Logic
 
         public static void SendEmail(string emailAddress, string subject, string body, string replyToAddress = OurEmailAddress)
         {
+
             var message = new MailMessage(new MailAddress(OurEmailAddress), new MailAddress(emailAddress))
             {
                 Subject = subject,
-                Body = body
-            };
 
+                Body = body,
+            };
+            
             if (replyToAddress != null)
             {
                 //@todo validate email 
@@ -31,6 +33,7 @@ namespace Imzist.Logic
                 Host = "smtp.gmail.com",
                 Port = 587,
                 UseDefaultCredentials = false,
+
                 Credentials = new System.Net.NetworkCredential(OurEmailAddress, OurPassword),
                 EnableSsl = true
             };

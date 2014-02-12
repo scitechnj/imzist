@@ -75,6 +75,7 @@
     <Compile Include="Location.cs">
       <DependentUpon>ImzistModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Partials\Item.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
