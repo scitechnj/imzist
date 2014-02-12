@@ -84,11 +84,26 @@ namespace Imzist.Web.Controllers
                 dbContext.SaveChanges();
                 Emailer.SendEmail(User.Identity.Name, "Imzist Listing",
                                   String.Format(
-                                      "Thank you for listing and item with us!\nYour listing will expire on {0}.",
-                                      item.ExpirationDate));
+                                      "Thank you for listing a {0} with us!\nYour listing will expire on {1}.",
+                                      item.Title, item.ExpirationDate));
                 var newId = item.Id;
                 return RedirectToAction("Index", new {location = LocationResolver.GetLocation().Name, id = newId});
             }
+        }
+
+        [HttpPost]
+        public ActionResult SendEmail(int itemId, string replyToAddress, string message)
+        {
+            
+            using (var dbContext = new ImzistEntities())
+            {
+                var item = dbContext.Items.First(i => i.Id == itemId);
+                var email = Membership.GetUser(item.UserId).UserName;
+                Emailer.SendEmail(email, string.Format("Regarding your {0} listing on Imzist.com", item.Title),
+                                  message, replyToAddress);
+            }
+
+            return Json(new {status = true});
         }
     }
 }

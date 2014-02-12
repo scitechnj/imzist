@@ -9,28 +9,40 @@ namespace Imzist.Logic
 {
     public static class Emailer
     {
-        public static void SendEmail(string emailAddress, string subject, string body)
+        private const string OurEmailAddress = "freeImzist@gmail.com";
+        private const string OurPassword = "scitech08701";
+
+        public static void SendEmail(string emailAddress, string subject, string body,
+                                     string replyToAddress = OurEmailAddress)
         {
-            var message = new MailMessage(new MailAddress("freeImzist@gmail.com"), new MailAddress(emailAddress))
+            if (String.IsNullOrEmpty(replyToAddress))
             {
-                Subject = subject,
-                Body = body,
-            };
-            
+                replyToAddress = OurEmailAddress;
+            }
+            var message = new MailMessage(new MailAddress(OurEmailAddress), new MailAddress(emailAddress))
+                {
+                    Subject = subject,
+                    Body = body,
+                };
+            //@todo validate reply email address
+            message.ReplyToList.Add(replyToAddress);
+
+
             var smtp = new SmtpClient
-            {
-                Host = "smtp.gmail.com",
-                Port = 587,
-                UseDefaultCredentials = false,
-                Credentials = new System.Net.NetworkCredential("freeimzist@gmail.com", "scitech08701"),
-                EnableSsl = true
-            };
+                {
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    UseDefaultCredentials = false,
+                    Credentials = new System.Net.NetworkCredential(OurEmailAddress, OurPassword),
+                    EnableSsl = true
+                };
 
             try
             {
                 smtp.Send(message);
             }
-            catch (Exception e)
+            catch (
+                Exception e)
             {
                 //TODO: Please teach us logging!!!!
             }
