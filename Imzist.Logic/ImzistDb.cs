@@ -30,7 +30,7 @@ namespace Imzist.Logic
             using (var db = new ImzistEntities())
             {
                 //                var items = db.Items.Where(i => i.Location.Name == location).ToList();
-                var items = db.Items.Include(i => i.Images);
+                var items = db.Items.Include(i => i.Images).Include(i => i.Location);
 
                 return items.Where(i => i.Location.Id == locationId).ToList();
             }
@@ -39,7 +39,7 @@ namespace Imzist.Logic
         {
             using (var db = new ImzistEntities())
             {
-                var items = db.Items.Include(i => i.Images);
+                var items = db.Items.Include(i => i.Images).Include(i => i.Location);
                 return items.Where(i => i.Category.Name == categoryName && i.Location.Id == locationId).ToList();
             }
         }
