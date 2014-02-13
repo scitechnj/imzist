@@ -41,12 +41,15 @@
 
             <p style="font-size: 130%; margin-bottom: 60px;">@Model.Item.Description</p>
 
-            <div class="images">
+            <div id="images" class="images">
                 
                 @foreach (Image image in Model.Item.Images)
                 {
-                    <img src="~/Content/images/thumbnail/@image.Name" style="height: 200px; margin-right: 20px; margin-bottom: 20px;"/>
+                    <img class="image" name="@image.Name" src="~/Content/images/thumbnail/@image.Name" style="height: 50px; margin-right: 20px; margin-bottom: 40px;"/>
                 }
+            </div>
+            <div>
+                <img id="bigImage" src="" style="height: 500px;"/>    
             </div>
 
         </div>
@@ -59,6 +62,14 @@
         $(function() {
             var lis = $('.nav > li');
             menu_focus(lis[1], 4);
+
+            $(".image").hover(
+                function() {
+                    $("#bigImage").attr("src", "/Content/images/full/" + $(this).attr("name"));
+                },
+                function() {
+                }
+            );
         })
     </script>
     <script>
