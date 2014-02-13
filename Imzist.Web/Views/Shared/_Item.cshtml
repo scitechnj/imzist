@@ -20,7 +20,8 @@
             @*                            <img class="img-rounded" src="@item.Images.FirstOrDefault()" style="width: 25px; height: 25px;"/>*@
             <div class="col-4">
                 <img class="img-rounded pull-left" src="@image" style="height: 90px; margin-right: 20px;"/>
-                <input hidden value="@item.Id"/>
+                <input id="id" hidden value="@item.Id"/>
+                <input id="location" hidden value="@item.Location.Name"/>
                 <div>
                     <div class="col-md-3">
                         <h4>@item.Title</h4>

@@ -78,15 +78,27 @@ namespace Imzist.Web.Controllers
 
         [HttpGet]
         [Authorize]
-        public ActionResult GetPosts(string username)
+        public ActionResult GetPosts(string category)
         {
             var model = new ListingsViewModel();
             using (var dbContext = new ImzistEntities())
             {
                 var userId = (Guid) Membership.GetUser(User.Identity.Name).ProviderUserKey;
-                model.Items = dbContext.Items.Include(item => item.Images).Where(item => item.UserId == userId).ToList();
-                return View(model);
 
+                if (String.IsNullOrEmpty(category))
+                {
+                    var items = dbContext.Items.Include(item => item.Images).ToList();
+                    model.Items = items.Where(item => item.UserId == userId).ToList();
+                }
+                else
+                {
+                    model.Items =
+                        dbContext.Items.Include(item => item.Images)
+                                 .Where(item => item.UserId == userId && item.Category.Name == category);
+                }
+                
+                model.Categories = dbContext.Categories;
+                return View(model);
             }
         }
     }

@@ -75,7 +75,7 @@
             });
 
             $(".listItem").click(function() {
-                var itemId = $(this).find("input").val();
+                var itemId = $(this).find("#id").val();
                 window.location = "/@LocationResolver.GetLocation().Name/Item/" + itemId;
             });
 //

@@ -1,15 +1,81 @@
-﻿@model Imzist.Web.Models.ListingsViewModel
+﻿@using Imzist.Data
+@using Imzist.Web.Helpers
+@model Imzist.Web.Models.ListingsViewModel
 
+@section styles
+{
+    <style>
+        .bs-sidebar .affix {
+	        position: fixed; 
+	        top: 70px;
+	        left: 62px;
+	        width: 360px;
+        }
+        .bs-sidebar .affix-top {
+	        position: fixed; 
+	        top: 70px;
+	        left: 62px;
+	        width: 360px;
+        }
+        .bs-sidebar .affix-bottom {
+	        position: absolute;
+        }
+    </style>
+}
 
-<!DOCTYPE html>
-
-<html>
-    <head>
-        <title>title</title>
-    </head>
-    <body>
-        <div>
-            @{Html.RenderPartial("_Item", Model);}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-1">
+            <div class="bs-sidebar affix" id="sidebar" data-spy="affix" data-offset-top="60" data-offset-bottom="200">
+                <div class="bs-sidebar affix" id="stickySidebar" style="background-color: #f0eeec; padding: 4px; padding-left: 8px; padding-right: 8px; margin-top: 70px; border-radius: 15px; width: 120px; margin-left: 0;">
+                    <ul id="categories" class="nav bs-sidenav nav-pills nav-stacked">
+                        <li>@Html.RouteLink("All", new {category = "", controller = "Account", action= "GetPosts"})</li>
+                        <hr style="border-color: black; height: 1px; margin: 4px;" />
+                        @foreach (Category category in @Model.Categories)
+                        {
+                            <li>@Html.RouteLink(category.Name, new {category = category.Name, controller = "Account", action= "GetPosts"})</li>
+                            if (category != Model.Categories.Last())
+                            {
+                                <hr style="border-color: black; height: 1px; margin: 4px;" />
+                            }
+                        }
+                    </ul>
+                </div>
+                <!--well bs-sidebar affix-->
+            </div>
+            <!--col-md-3-->
         </div>
-    </body>
-</html>
+        <div class="col-lg-11" id="listings">
+            <div style="text-align: center;">
+                <h3 style="color: white; margin-top: 80px; margin-bottom: 20px;">@User.Identity.Name's Account</h3>
+            </div>
+            <div id="allItems">
+                @{ Html.RenderPartial("_Item", Model); }
+            </div>
+        </div>
+        <!--row-->
+        <div class="col-md-4"></div>
+    </div>
+</div>
+
+
+@section scripts
+{
+    <script>
+        $(function() {
+            var lis = $('.nav > li');
+            menu_focus(lis[3], 4);
+
+            $("#stickySidebar").css("margin-left", (($("#listings").offset().left / 2) - $("#stickySidebar").width()));
+
+            $(window).resize(function() {
+                $("#stickySidebar").css("margin-left", (($("#listings").offset().left / 2) - $("#stickySidebar").width()));
+            });
+
+            $(".listItem").click(function() {
+                var itemId = $(this).find("#id").val();
+                window.location = "/" + $(this).find("#location").val() + "/Item/" + itemId;
+            });
+        });
+    </script>
+}
