@@ -1,41 +1,45 @@
 ﻿@model Imzist.Web.Models.ListingsViewModel
 
-@foreach (var item in Model.Items)
+@foreach (var key in Model.Items.Keys.Select(key => key.Date).Distinct())
 {
-    var image = "https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120";
+    <h5 style="color: white; margin-bottom: 10px; margin-left: 20px;">@key.ToString("d")</h5>
+    foreach (var item in Model.Items.Where(item => item.Key.Date == key))
+    {
+        var image = "https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120";
 
-    if (item.Images.FirstOrDefault() != null)
-    {
-        image = "/Content/images/thumbnail/" + item.Images.First().Name;
-    }
+        if (item.Value.Images.FirstOrDefault() != null)
+        {
+            image = "/Content/images/thumbnail/" + item.Value.Images.First().Name;
+        }
     
-    string description = item.Description;
-    if (description.Length > 250)
-    {
-        description = description.Substring(0, 250) + ". . .";
-    }
+        string description = item.Value.Description;
+        if (description.Length > 250)
+        {
+            description = description.Substring(0, 250) + ". . .";
+        }
     
-    <div class="listItem" style="cursor: pointer; background: #f6f3e8; border-radius: 15px; padding-top: 10px; padding-bottom: 10px; margin-right: 25px; margin-bottom: 25px;">
-        <div class="clearfix" style="padding-left: 30px; padding-top: 10px; padding-bottom: 10px;">
-            @*                            <img class="img-rounded" src="@item.Images.FirstOrDefault()" style="width: 25px; height: 25px;"/>*@
-            <div class="col-4">
-                <img class="img-rounded pull-left" src="@image" style="height: 90px; margin-right: 20px;"/>
-                <input id="id" hidden value="@item.Id"/>
-                <input id="location" hidden value="@item.Location.Name"/>
-                <div>
-                    <div class="col-md-3">
-                        <h4>@item.Title</h4>
-                    </div>
-                    <div class="col-md-3">
-                        <h5>@item.PostedDate</h5>
+        <div class="listItem" style="cursor: pointer; background: #f6f3e8; border-radius: 15px; padding-top: 10px; padding-bottom: 10px; margin-right: 25px; margin-bottom: 25px;">
+            <div class="clearfix" style="padding-left: 30px; padding-top: 10px; padding-bottom: 10px;">
+                @*                            <img class="img-rounded" src="@item.Images.FirstOrDefault()" style="width: 25px; height: 25px;"/>*@
+                <div class="col-4">
+                    <img class="img-rounded pull-left" src="@image" style="height: 90px; margin-right: 20px;"/>
+                    <input id="id" hidden value="@item.Value.Id"/>
+                    <input id="location" hidden value="@item.Value.Location.Name"/>
+                    <div>
+                        <div class="col-md-3">
+                            <h4>@item.Value.Title</h4>
+                        </div>
+                        <div class="col-md-3">
+                            <h5>@item.Value.PostedDate</h5>
+                        </div>
                     </div>
                 </div>
+                <div class="col-8">
+                    <p class="pull-right" style="margin-right: 40px; margin-top: 10px;">@description</p>
+                </div>
             </div>
-            <div class="col-8">
-                <p class="pull-right" style="margin-right: 40px; margin-top: 10px;">@description</p>
-            </div>
-        </div>
-    </div>
+        </div>   
+    }
 }
 
 

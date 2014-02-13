@@ -21,11 +21,11 @@ namespace Imzist.Web.Controllers
 
             if (String.IsNullOrEmpty(category))
             {
-                lvm.Items = _imzistDb.LocationBasedItems(LocationResolver.GetLocation().Id);
+                lvm.Items = _imzistDb.LocationBasedItems(LocationResolver.GetLocation().Id).ToDictionary(item => item.PostedDate);
             }
             else
             {
-                lvm.Items = _imzistDb.CategoryBasedItems(category, LocationResolver.GetLocation().Id);
+                lvm.Items = _imzistDb.CategoryBasedItems(category, LocationResolver.GetLocation().Id).ToDictionary(item => item.PostedDate);
             }
 
             return View(lvm);

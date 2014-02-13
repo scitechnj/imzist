@@ -9,6 +9,6 @@ namespace Imzist.Web.Models
     public class ListingsViewModel
     {
         public IEnumerable<Category> Categories { get; set; }
-        public IEnumerable<Item> Items { get; set; } 
+        public Dictionary<DateTime, Item> Items { get; set; } 
     }
 }

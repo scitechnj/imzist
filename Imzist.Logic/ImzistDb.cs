@@ -32,7 +32,7 @@ namespace Imzist.Logic
                 //                var items = db.Items.Where(i => i.Location.Name == location).ToList();
                 var items = db.Items.Include(i => i.Images).Include(i => i.Location);
 
-                return items.Where(i => i.Location.Id == locationId).ToList();
+                return items.Where(i => i.Location.Id == locationId).OrderByDescending(i => i.PostedDate).ToList();
             }
         }
         public IEnumerable<Item> CategoryBasedItems(string categoryName, int locationId)
@@ -40,14 +40,14 @@ namespace Imzist.Logic
             using (var db = new ImzistEntities())
             {
                 var items = db.Items.Include(i => i.Images).Include(i => i.Location);
-                return items.Where(i => i.Category.Name == categoryName && i.Location.Id == locationId).ToList();
+                return items.Where(i => i.Category.Name == categoryName && i.Location.Id == locationId).OrderByDescending(i => i.PostedDate).ToList();
             }
         }
         public IEnumerable<Category> Categories()
         {
             using (var db = new ImzistEntities())
             {
-                return db.Categories.ToList();
+                return db.Categories.OrderBy(c => c.Name).ToList();
             }
         }
         public Category Category(int id)

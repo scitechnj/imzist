@@ -87,17 +87,17 @@ namespace Imzist.Web.Controllers
 
                 if (String.IsNullOrEmpty(category))
                 {
-                    var items = dbContext.Items.Include(item => item.Images).ToList();
-                    model.Items = items.Where(item => item.UserId == userId).ToList();
+                    var items = dbContext.Items.Include(item => item.Images).Include(item => item.Location);
+                        
+                    model.Items = items.Where(item => item.UserId == userId).OrderByDescending(item => item.PostedDate).ToList().ToDictionary(item => item.PostedDate);
                 }
                 else
                 {
-                    model.Items =
-                        dbContext.Items.Include(item => item.Images)
-                                 .Where(item => item.UserId == userId && item.Category.Name == category);
+                    var items = dbContext.Items.Include(item => item.Images).Include(item => item.Location);
+                    model.Items = items.Where(item => item.UserId == userId && item.Category.Name == category).OrderByDescending(item => item.PostedDate).ToList().ToDictionary(item => item.PostedDate);
                 }
                 
-                model.Categories = dbContext.Categories;
+                model.Categories = dbContext.Categories.OrderBy(c => c.Name).ToList();
                 return View(model);
             }
         }
