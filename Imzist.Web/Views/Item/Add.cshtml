@@ -1,7 +1,6 @@
 ﻿@using System.Collections
 @using Imzist.Web.Helpers
-@model Imzist.Web.Models.AddListingViewModel
-
+@model Imzist.Web.Models.ItemListingViewModel
 
 @section styles
 {
@@ -18,42 +17,10 @@
         <div class="col-sm-12 col-lg-12">
             <div class="account-wall" style="border-radius: 15px;">
                 <form method="POST" action="/@LocationResolver.GetLocation().Name/Item/Add" enctype="multipart/form-data" style="color: white; font-size: 150%;">
-                    <input type="hidden" name="Item.UserId" value="@Model.UserId"/>
-                    <div class="col-lg-3">
-                        <input type="hidden" name="Item.UserId" value="@Model.UserId"/>
-                        <label for="Item.Title">Title</label>
-                        <input id="itemTitle" type="text" class="form-control" name="Item.Title"/>
-                        <label for="Item.CategoryId">Category</label>
-                        <select class="form-control" name="Item.CategoryId">
-                            @foreach (var category in Model.Categories)
-                            {
-                                <option value="@category.Id">@category.Name</option>
-                            }
-                        </select>
-                        <label for="expirationDays">Expiration</label>
-                        <select class="form-control" name="expirationDays" style="margin-bottom: 20px;">
-                            <option value="7">7 Days</option>
-                            <option value="14">14 Days</option>
-                            <option value="30">30 Days</option>
-                        </select>
-                    </div>
-                    <div class="col-lg-6">
-                        <label for="Item.Description">Description</label>
-                        <textarea class="form-control" name="Item.Description" rows="10"></textarea>
-                    </div>
-                    <div class="col-lg-2">
-                        <label>Select Images</label>
-                        <input type="file" name="Images[0]" style="margin-bottom: 17px;"/>
-                        <input type="file" name="Images[1]" style="margin-bottom: 17px;" />
-                        <input type="file" name="Images[2]" style="margin-bottom: 17px;" />
-                        <input type="file" name="Images[3]" style="margin-bottom: 17px;" />
-                        <input type="file" name="Images[4]" style="margin-bottom: 17px;" />
-                    </div>
-                    <div class="col-lg-6 col-lg-offset-3" style="margin-top: 25px;">
-                        <button id="submitButton" class="btn btn-primary btn-lg btn-block">Submit</button>
-                    </div>
+                    @{Html.RenderPartial("_ItemForm", Model);}
                 </form>
             </div>
+
         </div>
     </div>
 </div>
