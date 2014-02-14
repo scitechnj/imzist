@@ -9,5 +9,6 @@ namespace Imzist.Web.Models
     public class ItemViewModel
     {
         public Item Item { get; set; }
+        public bool IsPoster { get; set; }
     }
 }
