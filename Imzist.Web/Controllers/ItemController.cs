@@ -24,7 +24,19 @@ namespace Imzist.Web.Controllers
             {
                 IEnumerable<Item> items = dbcontext.Items.Include(it => it.Images);
                 Item item = items.FirstOrDefault(i => i.Id == id);
-                return View(new ItemViewModel() {Item = item});
+                bool IsPoster;
+                if(Membership.GetUser(User.Identity.Name) == null)
+                {
+                    //not logged in so obv not the poster
+                    IsPoster = false;
+                }
+                
+                else
+                {
+                    //check if the current logged in user is the poster
+                    IsPoster = item.UserId == (Guid)Membership.GetUser(User.Identity.Name).ProviderUserKey;
+                }
+                return View(new ItemViewModel() {Item = item, IsPoster = IsPoster});
             }
         }
 
