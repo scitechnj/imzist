@@ -41,14 +41,14 @@
 
             <p style="font-size: 130%; margin-bottom: 60px;">@Model.Item.Description</p>
 
-            <div id="images" class="images">
+            <div id="images" class="images text-center">
                 
                 @foreach (Image image in Model.Item.Images)
                 {
                     <img class="image" name="@image.Name" src="~/Content/images/thumbnail/@image.Name" style="height: 50px; margin-right: 20px; margin-bottom: 40px;"/>
                 }
             </div>
-            <div>
+            <div class="text-center">
                 <img id="bigImage" src="" style="height: 500px;"/>    
             </div>
 
