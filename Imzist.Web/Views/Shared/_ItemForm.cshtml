@@ -6,6 +6,10 @@
 <input type="hidden" name="Item.UserId" value="@Model.UserId" />
 <div class="col-lg-3">
     <input type="hidden" name="Item.UserId" value="@Model.UserId"/>
+    @if (!String.IsNullOrEmpty(Request.QueryString["id"]))
+    {
+        <input type="hidden" name="Item.Id" value='@Request.QueryString["id"]'/>
+    }
     <label for="Item.Title">Title</label>
     <input id="itemTitle" type="text" class="form-control" name="Item.Title" value="@Model.Item.Title"/>
     <label for="Item.CategoryId">Category</label>
