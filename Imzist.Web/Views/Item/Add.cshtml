@@ -41,13 +41,53 @@
                         <label for="Item.Description">Description</label>
                         <textarea class="form-control" name="Item.Description" rows="10"></textarea>
                     </div>
-                    <div class="col-lg-2">
+                    <div class="col-lg-3">
                         <label>Select Images</label>
-                        <input type="file" name="Images[0]" style="margin-bottom: 17px;"/>
-                        <input type="file" name="Images[1]" style="margin-bottom: 17px;" />
-                        <input type="file" name="Images[2]" style="margin-bottom: 17px;" />
-                        <input type="file" name="Images[3]" style="margin-bottom: 17px;" />
-                        <input type="file" name="Images[4]" style="margin-bottom: 17px;" />
+                        <div class="row">
+                            <div class="col-sm-10">
+                                <input class="image1" type="text" style="width:210px;">
+                            </div>
+                            <div class="col-sm-1">
+                                <a class="btn btn-primary browsebutton" data-imageid="1">Browse</a>
+                            </div>
+                        </div>
+                        <div class="row" style="padding-top:20px;">
+                            <div class="col-sm-10">
+                                <input class="image2" type="text" style="width:210px;">
+                            </div>
+                            <div class="col-sm-1">
+                                <a class="btn btn-primary browsebutton" data-imageid="2">Browse</a>
+                            </div>
+                        </div>
+                        <div class="row" style="padding-top:20px;">
+                            <div class="col-sm-10">
+                                <input class="image3" type="text" style="width:210px;">
+                            </div>
+                            <div class="col-sm-1">
+                                <a class="btn btn-primary browsebutton" data-imageid="3">Browse</a>
+                            </div>
+                        </div>
+                        <div class="row" style="padding-top:20px;">
+                            <div class="col-sm-10">
+                                <input class="image4" type="text" style="width:210px;">
+                            </div>
+                            <div class="col-sm-1">
+                                <a class="btn btn-primary browsebutton" data-imageid="4">Browse</a>
+                            </div>
+                        </div>
+                        <div class="row" style="padding-top:20px;">
+                            <div class="col-sm-10">
+                                <input class="image5" type="text" style="width:210px;">
+                            </div>
+                            <div class="col-sm-1">
+                                <a class="btn btn-primary browsebutton" data-imageid="5">Browse</a>
+                                </div>
+                        </div>
+                        <input type="file" id="image1" name="Images[0]" style="display: none;"/>
+                        <input type="file" id="image2" name="Images[1]" style="display: none;" />
+                        <input type="file" id="image3" name="Images[2]" style="display: none;" />
+                        <input type="file" id="image4" name="Images[3]" style="display: none;" />
+                        <input type="file" id="image5" name="Images[4]" style="display: none;" />
                     </div>
                     <div class="col-lg-6 col-lg-offset-3" style="margin-top: 25px;">
                         <button id="submitButton" class="btn btn-primary btn-lg btn-block">Submit</button>
@@ -78,6 +118,17 @@
 //                    $("#error")[0].play();
                 }
             });
+
+            $(".browsebutton").click(function () {
+                var id = $(this).data("imageid");
+                $("input[id=image" + id + "]").click();
+            });
+
+            $("input:file").change(function() {
+                var id = $(this).attr("id");
+                $("." + id).val($(this).val());
+            });
+
         });
         
         function PlaySound(soundObj) {
