@@ -1,0 +1,49 @@
+﻿@using Imzist.Web.Helpers
+@model Imzist.Web.Models.ItemListingViewModel
+
+
+              
+<input type="hidden" name="Item.UserId" value="@Model.UserId" />
+<div class="col-lg-3">
+    <input type="hidden" name="Item.UserId" value="@Model.UserId"/>
+    <label for="Item.Title">Title</label>
+    <input id="itemTitle" type="text" class="form-control" name="Item.Title" value="@Model.Item.Title"/>
+    <label for="Item.CategoryId">Category</label>
+    <select class="form-control" name="Item.CategoryId">
+        @foreach (var category in Model.Categories)
+        {
+            <option value="@category.Id">@category.Name</option>
+        }
+    </select>
+    <label for="expirationDays">Expiration</label>
+    <select class="form-control" name="expirationDays" style="margin-bottom: 20px;">
+        @foreach (int i in new[] { 7,14,30 })
+        {
+            <option @if (DateTime.Now.Subtract(Model.Item.PostedDate).Days >= i)
+                    {
+                        @:selected="selected"
+                    } value="@i">@i Days</option>
+        }
+    
+    </select>
+</div>
+<div class="col-lg-6">
+    <label for="Item.Description">Description</label>
+    <textarea class="form-control" name="Item.Description" rows="10">@Model.Item.Description</textarea>
+</div>
+
+<div class="col-lg-2">
+    <label>Select Images</label>
+    <input type="file" name="Images[0]" style="margin-bottom: 17px;"/>
+    <input type="file" name="Images[1]" style="margin-bottom: 17px;" />
+    <input type="file" name="Images[2]" style="margin-bottom: 17px;" />
+    <input type="file" name="Images[3]" style="margin-bottom: 17px;" />
+    <input type="file" name="Images[4]" style="margin-bottom: 17px;" />
+</div>
+
+<div class="col-lg-6 col-lg-offset-3" style="margin-top: 25px;">
+    <button id="submitButton" class="btn btn-primary btn-lg btn-block">Submit</button>
+</div>
+
+               
+       
