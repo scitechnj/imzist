@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.IO;
 using System.Linq;
@@ -34,12 +35,8 @@ namespace Imzist.Web.Controllers
             return userId == (Guid) Membership.GetUser(User.Identity.Name).ProviderUserKey;
 
         }
-        private Item ItemProcesser(Item item)
+        private Item ImageProcesser(Item item, int counter)
         {
-            item.LocationId = LocationResolver.GetLocation().Id;
-            item.UserId = item.UserId;
-            item.PostedDate = DateTime.Now;
-           
             foreach (string file in Request.Files)
             {
                 var imageFile = Request.Files[file];
@@ -47,7 +44,10 @@ namespace Imzist.Web.Controllers
                 {
                     continue;
                 }
-
+                if (counter > 5) //limit of 5 images per item
+                {
+                    break;
+                }
                 var imageBytes = new byte[imageFile.InputStream.Length];
                 imageFile.InputStream.Read(imageBytes, 0, imageBytes.Length);
                 var imageStream = new MemoryStream(imageBytes);
@@ -65,6 +65,7 @@ namespace Imzist.Web.Controllers
 
                 imageFile.InputStream.Dispose();
                 imageStream.Dispose();
+                counter++;
             }
             return item;
         }
@@ -98,10 +99,11 @@ namespace Imzist.Web.Controllers
         [Authorize]
         public ActionResult Add(Item item, int expirationDays)
         {
-
-
+            item.LocationId = LocationResolver.GetLocation().Id;
+            item.PostedDate = DateTime.Now;
             item.ExpirationDate = item.PostedDate.AddDays(expirationDays);
-            item = ItemProcesser(item);
+            item.UserId = (Guid)Membership.GetUser(User.Identity.Name).ProviderUserKey;
+            item = ImageProcesser(item,5);
             using (var dbContext = new ImzistEntities())
             {
                 dbContext.Items.Add(item);
@@ -135,10 +137,7 @@ namespace Imzist.Web.Controllers
             using (var dbContext = new ImzistEntities())
             {
                 var model = new ItemListingViewModel();
-
-
-                
-                var item = dbContext.Items.First(i => i.Id == id);
+                var item = dbContext.Items.Include(item1 => item1.Images).FirstOrDefault(i => i.Id == id);
                 if (IsPoster(item.UserId))
                 {
                     model.UserId = item.UserId;
@@ -155,30 +154,54 @@ namespace Imzist.Web.Controllers
         [HttpPost]
         public ActionResult Edit(Item item, int expirationDays)
         {
-            if (IsPoster(item.UserId))
-            {
-                item.ExpirationDate = item.PostedDate.AddDays(expirationDays);
-                item = ItemProcesser(item);
+                
                 using (var dbContext = new ImzistEntities())
                 {
-                    dbContext.Items.Attach(item);
-                    var entry = dbContext.Entry(item);
-                    entry.State = EntityState.Modified;
+                    var itemDb = dbContext.Items.First(i => i.Id == item.Id);
                     
-                    
+                    //want to check using the item.UserId from the db, not the one that user passed in - security risk
+                    //but can't reattach on line 172 with changes from user
+                    if (IsPoster(itemDb.UserId))
+                    {
+                        //dbContext.Detach()
+                        itemDb = ImageProcesser(item, itemDb.Images.Count);
+                         
+                        itemDb.ExpirationDate = itemDb.PostedDate.AddDays(expirationDays);
+                        //dbContext.Items.Attach(item);
 
-                    dbContext.SaveChanges();
-                    Emailer.SendEmail(User.Identity.Name, "Imzist Listing Updated",
-                                      String.Format(
-                                          "Thank you for updating your {0} listing with us!\nYour listing will expire on {1}.",
-                                          item.Title, item.ExpirationDate));
-
+                        //dbContext.Entry(itemDb).State = EntityState.Modified;
+                        ((IObjectContextAdapter) dbContext).ObjectContext.ObjectStateManager.ChangeObjectState(itemDb,
+                                                                                                               EntityState
+                                                                                                                   .Modified);
+                        dbContext.SaveChanges();
+                        Emailer.SendEmail(User.Identity.Name, "Imzist Listing Updated",
+                                          String.Format(
+                                              "Thank you for updating your {0} listing with us!\nYour listing will expire on {1}.",
+                                              item.Title, item.ExpirationDate));
+                    }
                 }
                 //@todo return message that item was updated....
 
-            }
+            
 
             return RedirectToAction("Index", new { location = LocationResolver.GetLocation().Name, id = item.Id });
+        }
+        [Authorize]
+        [HttpGet]
+        public ActionResult Delete(int id)
+        {
+            using (var dbContext = new ImzistEntities())
+            {
+                var item = dbContext.Items.First(i => i.Id == id);
+                if (IsPoster(item.UserId))
+                {
+                    dbContext.Items.Attach(item);
+                    dbContext.Items.Remove(item);
+                    dbContext.SaveChanges();
+                }
+            }
+            
+            return RedirectToAction("GetPosts", "Account");
         }
     }
 }

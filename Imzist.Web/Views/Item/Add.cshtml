@@ -16,9 +16,9 @@
     <div class="row">
         <div class="col-sm-12 col-lg-12">
             <div class="account-wall" style="border-radius: 15px;">
-                <form method="POST" action="/@LocationResolver.GetLocation().Name/Item/Add" enctype="multipart/form-data" style="color: white; font-size: 150%;">
-                    @{Html.RenderPartial("_ItemForm", Model);}
-                </form>
+                
+                    @{Html.RenderPartial("_ItemForm", Model, new ViewDataDictionary(){{"url", "Add"}, {"type", "add"}});}
+               
             </div>
 
         </div>
