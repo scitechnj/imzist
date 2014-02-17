@@ -125,6 +125,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\ListingsController.cs" />
@@ -674,6 +675,7 @@
     <Content Include="Content\glyphicons_free\glyphicons_social\png\glyphicons_social_49_ios.png" />
     <Content Include="Content\glyphicons_free\_changelog.txt" />
     <Content Include="Content\glyphicons_free\_readme_first.txt" />
+    <Content Include="Content\images\question_mark.png" />
     <Content Include="Content\Login.css" />
     <Content Include="Content\Munter\css\bootstrap.min.css" />
     <Content Include="Content\Munter\css\font-awesome.min.css" />
@@ -833,7 +835,7 @@
     <Content Include="Views\Item\Add.cshtml" />
     <Content Include="Views\Account\GetPosts.cshtml" />
     <Content Include="Views\Shared\_Item.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Contact\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

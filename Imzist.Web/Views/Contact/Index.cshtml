@@ -1,0 +1,44 @@
+﻿@section styles
+{
+    <link rel="stylesheet" href="../../Content/Login.css"/>
+}
+
+<div class="container" style="margin-top: 100px;">
+    <div class="row">
+        <div class="col-sm-6 col-lg-6 col-lg-offset-3">
+            <div class="account-wall" style="border-radius: 15px; padding-top: 15px;">
+@*                <img class="profile-img" src="/Content/images/question_mark.png" style="height: 30%;"*@
+@*                     alt="">    *@
+                <div style="padding-left: 40px; padding-right: 40px; padding-top: 10px; padding-bottom: 20px;">
+                    <label for="message" style="margin-bottom: 15px;"><h3>So what's on your mind?</h3></label>
+                    <textarea class="form-control" id="message" name="message" style="margin-bottom: 25px;" rows="10" cols="6" required></textarea>
+                    <button class="btn btn-lg btn-primary btn-block" id="submitButton">
+                        Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+        $(function() {
+            var lis = $('.nav > li');
+            menu_focus(lis[4], 4);
+
+            $("#submitButton").click(function () {
+                var message = $("#message").val();
+                $.post('/Contact/Email', { message: message }, function(data) {
+                    if (data.status) {
+                        alert("Your email has successfully been sent");
+                        $("#modal").modal("hide");
+                    } else {
+                        $(this).removeAttr("disabled");
+                        alert("There was a problem sending your email. Please try again later");
+                    }
+                });
+            });
+        })
+    </script>
+}

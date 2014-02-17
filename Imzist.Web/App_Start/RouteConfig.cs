@@ -15,6 +15,8 @@ namespace Imzist.Web
 
             routes.MapRoute("Account", "Account/{action}", new {controller = "Account"});
 
+            routes.MapRoute("Contact", "Contact/{action}", new {controller = "Contact"});
+
             routes.MapRoute(
                 "Item",
                  "{location}/Item/{id}",

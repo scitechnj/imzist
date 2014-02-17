@@ -60,7 +60,7 @@
                 }
             </div>
             <div class="text-center">
-                <img id="bigImage" src="" style="height: 500px;"/>    
+                <img id="bigImage" src=" " style="height: 500px; margin-bottom: 100px;" hidden="hidden"/>    
             </div>
 
         </div>
@@ -76,6 +76,7 @@
 
             $(".image").hover(
                 function() {
+                    $("#bigImage").removeAttr("hidden");
                     $("#bigImage").attr("src", "/Content/images/full/" + $(this).attr("name"));
                 },
                 function() {
