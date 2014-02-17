@@ -36,9 +36,12 @@
         <div class="col-2">
             @if (Model.IsPoster)
             {
-
-                <button class="btn btn-info btn-lg" style="margin-top: 25px; margin-right: 35px; display: block;">Edit</button>
-                <button class="btn btn-danger btn-lg" style="margin-top: 25px; margin-right: 35px; display: block;">Delete</button>
+                <a href="/@LocationResolver.GetLocation().Name/Item/Edit/?itemId=@Model.Item.Id">
+                    <button class="btn btn-info btn-lg btn-block" id="edit" style="margin-top: 25px; margin-right: 35px; display: block;">Edit</button>
+                </a>
+                <a href="/@LocationResolver.GetLocation().Name/Item/Delete/?itemId=@Model.Item.Id">
+                    <button class="btn btn-danger btn-lg btn-block" id="delete" style="margin-top: 25px; margin-right: 35px; display: block;">Delete</button>
+                </a>
             }
             else
             {
@@ -60,7 +63,7 @@
                 }
             </div>
             <div class="text-center">
-                <img id="bigImage" src=" " style="height: 500px; margin-bottom: 100px;" hidden="hidden"/>    
+                <img id="bigImage" src="" style="height: 500px; margin-bottom: 100px;" hidden="hidden"/>    
             </div>
 
         </div>
@@ -78,6 +81,11 @@
                 function() {
                     $("#bigImage").removeAttr("hidden");
                     $("#bigImage").attr("src", "/Content/images/full/" + $(this).attr("name"));
+
+                    if ($("#bigImage").width() >= 1000) {
+                        $("#bigImage").css("height", "");
+                        $("#bigImage").css("width", "1000");
+                    }
                 },
                 function() {
                 }
@@ -99,7 +107,8 @@
                         $(this).removeAttr("disabled");
                         alert("There was a problem sending your email. Please try again later");
                     }
-                });
+                        $("#contact").modal("hide");
+                    });
             });
         })
 

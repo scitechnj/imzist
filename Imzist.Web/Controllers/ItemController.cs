@@ -117,5 +117,29 @@ namespace Imzist.Web.Controllers
 
             return Json(new {status = true});
         }
+
+        [Authorize]
+        public ActionResult Delete(int itemId)
+        {
+            using (var db = new ImzistEntities())
+            {
+                var item = db.Items.First(i => i.Id == itemId);
+                foreach (var image in item.Images.ToList())
+                {
+                    db.Images.Remove(image);
+                }
+                db.SaveChanges();
+                db.Items.Remove(item);
+                db.SaveChanges();
+            }
+
+            return Redirect("/Account/GetPosts");
+        }
+
+        [Authorize]
+        public ActionResult Edit(int itemId)
+        {
+            return View();
+        }
     }
 }

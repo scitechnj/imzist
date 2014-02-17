@@ -20,7 +20,7 @@ namespace Imzist.Web.Controllers
         [HttpPost]
         public ActionResult Email(string message)
         {
-            Emailer.SendEmail("freeImzist@gmail.com", "Contact from " + User.Identity.Name, message);
+            Emailer.SendEmail("freeImzist@gmail.com", "Contact from " + User.Identity.Name, "From " + User.Identity.Name + ":\n\n" + message);
 
             return Json(new {status = true});
         }
