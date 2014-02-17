@@ -163,16 +163,19 @@ namespace Imzist.Web.Controllers
                     //but can't reattach on line 172 with changes from user
                     if (IsPoster(itemDb.UserId))
                     {
+                        dbContext.Entry(itemDb).State = EntityState.Detached;
                         //dbContext.Detach()
                         itemDb = ImageProcesser(item, itemDb.Images.Count);
                          
                         itemDb.ExpirationDate = itemDb.PostedDate.AddDays(expirationDays);
-                        //dbContext.Items.Attach(item);
+                        
 
-                        //dbContext.Entry(itemDb).State = EntityState.Modified;
-                        ((IObjectContextAdapter) dbContext).ObjectContext.ObjectStateManager.ChangeObjectState(itemDb,
-                                                                                                               EntityState
-                                                                                                                   .Modified);
+                        dbContext.Items.Attach(item);
+                        dbContext.Entry(item).State = EntityState.Modified;
+                        //((IObjectContextAdapter) dbContext).ObjectContext.ObjectStateManager.ChangeObjectState(itemDb,
+                        //                                                                                       EntityState
+                        //                                                                                           .Modified);
+
                         dbContext.SaveChanges();
                         Emailer.SendEmail(User.Identity.Name, "Imzist Listing Updated",
                                           String.Format(
