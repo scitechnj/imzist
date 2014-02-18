@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -137,82 +137,29 @@ namespace Imzist.Web.Controllers
 
             return Json(new {status = true});
         }
+
         [Authorize]
-        public ActionResult Edit(int id)
+        public ActionResult Delete(int itemId)
         {
-            using (var dbContext = new ImzistEntities())
+            using (var db = new ImzistEntities())
             {
-                var model = new ItemListingViewModel();
-                var item = dbContext.Items.Include(item1 => item1.Images).FirstOrDefault(i => i.Id == id);
-                if (IsPoster(item.UserId))
+                var item = db.Items.First(i => i.Id == itemId);
+                foreach (var image in item.Images.ToList())
                 {
-                    model.UserId = item.UserId;
-                    model.Categories = dbContext.Categories.ToList();
-                    model.Item = item;
-                    return View(model);
+                    db.Images.Remove(image);
                 }
-
-                return RedirectToAction("Index",  new { location = LocationResolver.GetLocation().Name, id = id });
+                db.SaveChanges();
+                db.Items.Remove(item);
+                db.SaveChanges();
             }
-            
+
+            return Redirect("/Account/GetPosts");
         }
+
         [Authorize]
-        [HttpPost]
-        public ActionResult Edit(Item item, int expirationDays)
+        public ActionResult Edit(int itemId)
         {
-                
-                using (var dbContext = new ImzistEntities())
-                {
-                    var itemDb = dbContext.Items.First(i => i.Id == item.Id);
-                    
-                    if (IsPoster(itemDb.UserId))
-                    {
-                        
-                        item = ImageProcesser(item, itemDb.Images);
-                         
-                        itemDb.ExpirationDate = itemDb.PostedDate.AddDays(expirationDays);
-                        foreach (Image img in item.Images)
-                        {
-                            itemDb.Images.Add(img);
-                        }
-                        itemDb.Title = item.Title;
-                        itemDb.Description = item.Description;
-                        itemDb.CategoryId = item.CategoryId;
-
-
-                        dbContext.SaveChanges();
-                        Emailer.SendEmail(User.Identity.Name, "Imzist Listing Updated",
-                                          String.Format(
-                                              "Thank you for updating your {0} listing with us!\nYour listing will expire on {1}.",
-                                              item.Title, item.ExpirationDate));
-                    }
-                }
-                //@todo return message that item was updated....
-
-            
-
-            return RedirectToAction("Index", new { location = LocationResolver.GetLocation().Name, id = item.Id });
-        }
-        [Authorize]
-        [HttpGet]
-        public ActionResult Delete(int id)
-        {
-            using (var dbContext = new ImzistEntities())
-            {
-                var item = dbContext.Items.First(i => i.Id == id);
-                if (IsPoster(item.UserId))
-                {
-                    
-                    foreach (Image img in item.Images)
-                    {
-                        dbContext.Images.Remove(img);
-                    }
-                    dbContext.Items.Remove(item);
-                    dbContext.SaveChanges();
-                }
-            }
-            
-            return RedirectToAction("GetPosts", "Account");
+            return View();
         }
     }
 }

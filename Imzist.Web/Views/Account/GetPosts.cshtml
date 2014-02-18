@@ -56,7 +56,7 @@
         <div class="col-lg-11" id="listings">
             <div>
                 <div>
-                    <h3 style="color: white; margin-top: 90px; margin-bottom: 40px; text-align: center"">@User.Identity.Name</h3>
+                    <h3 style="color: white; margin-top: 90px; margin-bottom: 40px; text-align: center;">@User.Identity.Name</h3>
                 </div>
                 <div id="allItems">
                     @if (Model.Items.Any())
@@ -65,7 +65,11 @@
                     }
                     else
                     {
-                        <h3 style="color: white; text-align: center">We know you would love to share something.</h3><h3 style="color: white; text-align: center">Unfortunately you just can't think of anything right now.</h3><h3 style="color: white; text-align: center">Please remember to come back here when you do!</h3>
+                        <br/><br/><br/>
+                        <h1 style="color: #357EBD; text-align: center; font-size: 600%; margin-top: 55px; margin-bottom: 100px;">sharing . . .</h1>
+                        <div class="col-2 col-lg-offset-5" style="border: grey; border-width: 1px; border-style: groove; border-radius: 15px;">
+                            <h4 style="margin: 30px; color: #357EBD; text-align: center; font-style: italic;">it's a beautiful thing</h4> 
+                        </div>
                     }
                    
                 </div>

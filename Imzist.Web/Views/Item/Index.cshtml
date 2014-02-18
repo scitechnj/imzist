@@ -1,4 +1,4 @@
-﻿@using Imzist.Data
+@using Imzist.Data
 @using Imzist.Web.Helpers
 @model Imzist.Web.Models.ItemViewModel
 
@@ -36,10 +36,12 @@
         <div class="col-2">
             @if (Model.IsPoster)
             {
-
-                <a href="/@LocationResolver.GetLocation().Name/Item/Edit?id=@Model.Item.Id" class="btn btn-info btn-lg" style="margin-top: 25px; margin-right: 35px; display: block;">Edit</a>
-                
-                <a href="/@LocationResolver.GetLocation().Name/Item/Delete?id=@Model.Item.Id" class="btn btn-danger btn-lg" style="margin-top: 25px; margin-right: 35px; display: block;">Delete</a>
+                <a href="/@LocationResolver.GetLocation().Name/Item/Edit/?itemId=@Model.Item.Id">
+                    <button class="btn btn-info btn-lg btn-block" id="edit" style="margin-top: 25px; margin-right: 35px; display: block;">Edit</button>
+                </a>
+                <a href="/@LocationResolver.GetLocation().Name/Item/Delete/?itemId=@Model.Item.Id">
+                    <button class="btn btn-danger btn-lg btn-block" id="delete" style="margin-top: 25px; margin-right: 35px; display: block;">Delete</button>
+                </a>
             }
             else
             {
@@ -53,15 +55,15 @@
 
             <p style="font-size: 130%; margin-bottom: 60px;">@Model.Item.Description</p>
 
-            <div id="images" class="images">
+            <div id="images" class="images text-center">
                 
                 @foreach (Image image in Model.Item.Images)
                 {
                     <img class="image" name="@image.Name" src="~/Content/images/thumbnail/@image.Name" style="height: 50px; margin-right: 20px; margin-bottom: 40px;"/>
                 }
             </div>
-            <div>
-                <img id="bigImage" src="" style="height: 500px;"/>    
+            <div class="text-center">
+                <img id="bigImage" src="" style="height: 500px; margin-bottom: 100px;" hidden="hidden"/>    
             </div>
 
         </div>
@@ -77,7 +79,13 @@
 
             $(".image").hover(
                 function() {
+                    $("#bigImage").removeAttr("hidden");
                     $("#bigImage").attr("src", "/Content/images/full/" + $(this).attr("name"));
+
+                    if ($("#bigImage").width() >= 1000) {
+                        $("#bigImage").css("height", "");
+                        $("#bigImage").css("width", "1000");
+                    }
                 },
                 function() {
                 }
@@ -99,7 +107,8 @@
                         $(this).removeAttr("disabled");
                         alert("There was a problem sending your email. Please try again later");
                     }
-                });
+                        $("#contact").modal("hide");
+                    });
             });
         })
 
