@@ -139,27 +139,91 @@ namespace Imzist.Web.Controllers
         }
 
         [Authorize]
-        public ActionResult Delete(int itemId)
+        public ActionResult Edit(int itemId)
         {
-            using (var db = new ImzistEntities())
+            using (var dbContext = new ImzistEntities())
             {
-                var item = db.Items.First(i => i.Id == itemId);
-                foreach (var image in item.Images.ToList())
+                var model = new ItemListingViewModel();
+                var item = dbContext.Items.Include(item1 => item1.Images).FirstOrDefault(i => i.Id == itemId);
+                if (IsPoster(item.UserId))
                 {
-                    db.Images.Remove(image);
+                    model.UserId = item.UserId;
+                    model.Categories = dbContext.Categories.ToList();
+                    model.Item = item;
+                    return View(model);
                 }
-                db.SaveChanges();
-                db.Items.Remove(item);
-                db.SaveChanges();
-            }
 
-            return Redirect("/Account/GetPosts");
+                return RedirectToAction("Index",  new { location = LocationResolver.GetLocation().Name, id = itemId });
+            }
+            
+        }
+        [Authorize]
+        [HttpPost]
+        public ActionResult Edit(Item item, IEnumerable<int> deletedImages, int expirationDays)
+        {
+                
+                using (var dbContext = new ImzistEntities())
+                {
+                    var itemDb = dbContext.Items.First(i => i.Id == item.Id);
+                    
+                    if (IsPoster(itemDb.UserId))
+                    {
+                        
+                        item = ImageProcesser(item, itemDb.Images);
+                        
+                        itemDb.ExpirationDate = itemDb.PostedDate.AddDays(expirationDays);
+                        foreach (Image img in item.Images)
+                        {
+                            itemDb.Images.Add(img);
+                        }
+                        itemDb.Title = item.Title;
+                        itemDb.Description = item.Description;
+                        itemDb.CategoryId = item.CategoryId;
+
+                        if (deletedImages != null)
+                        {
+                            foreach (int deletedImageId in deletedImages)
+                            {
+                                Image deleteImg = itemDb.Images.FirstOrDefault(image => image.Id == deletedImageId);
+                                dbContext.Images.Remove(deleteImg);
+                                itemDb.Images.Remove(deleteImg);
+                            }
+                        }
+
+                        dbContext.SaveChanges();
+                        Emailer.SendEmail(User.Identity.Name, "Imzist Listing Updated",
+                                          String.Format(
+                                              "Thank you for updating your {0} listing with us!\nYour listing will expire on {1}.",
+                                              item.Title, item.ExpirationDate));
+                    }
+                }
+                //@todo return message that item was updated....
+
+            
+
+            return RedirectToAction("Index", new { location = LocationResolver.GetLocation().Name, id = item.Id });
         }
 
         [Authorize]
-        public ActionResult Edit(int itemId)
+        [HttpGet]
+        public ActionResult Delete(int id)
         {
-            return View();
+            using (var dbContext = new ImzistEntities())
+            {
+                var item = dbContext.Items.First(i => i.Id == id);
+                if (IsPoster(item.UserId))
+                {
+                    
+                    foreach (Image img in item.Images)
+                    {
+                        dbContext.Images.Remove(img);
+                    }
+                    dbContext.Items.Remove(item);
+                    dbContext.SaveChanges();
+                }
+            }
+            
+            return RedirectToAction("GetPosts", "Account");
         }
     }
 }

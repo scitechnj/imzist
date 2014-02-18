@@ -37,19 +37,38 @@
     </div>
 
     <div class="col-lg-2" id="imgContainer">
-        <label>Select Images</label>
-        @foreach (var image in Model.Item.Images)
-        {
-            <div class="savedImg"><img src="~/Content/images/thumbnail/@image.Name"/>
-                <input type="button" name="deleteImg" value="Remove this image"/>
-            </div>
-        }
-        @* only allow 5 images per item *@ 
-        @for (int i = 0; i < 5 - Model.Item.Images.Count; i++)
-        {
-            <input type="file" name="Images[@i]" style="margin-bottom: 17px;" />
-              
-        }
+       
+        
+        <div class="col-lg-3">
+                        <label>Select Images</label>
+                        <div class="row">
+                            @foreach (var image in Model.Item.Images)
+                            {
+                                <div class="savedImg col-sm-10"><img src="~/Content/images/thumbnail/@image.Name"/>
+                                   <div class="col-sm-1">
+                                        <input type="button" name="deleteImg" data-imgid="@(image.Id)" value="Remove this image"/>
+                                   </div>
+                             </div>
+                            }
+                        </div>
+                        
+                      
+                          @* only allow 5 images per item, client side validation ftw *@ 
+                         @for (int i = 0; i < 5 - Model.Item.Images.Count; i++)
+                             
+                         {
+                            <div class="row" style="padding-top:14px;">
+                                <div class="col-sm-10">
+                                 <input class="image@(i+1)" type="text" disabled="disabled" style="width:210px; height: 35px;">
+                                </div>
+                                <div class="col-sm-1">
+                                    <a class="btn btn-primary browsebutton" data-imageid="@(i+1)">Browse</a>
+                                </div>
+                            </div>
+                            <input type="file" id="image@(i+1)" name="Images[@i]" style="display: none;" />
+                         }
+                    </div>
+       
     </div>
 
     <div class="col-lg-6 col-lg-offset-3" style="margin-top: 25px;">

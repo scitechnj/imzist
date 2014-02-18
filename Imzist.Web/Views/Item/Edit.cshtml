@@ -9,6 +9,11 @@
         .form-control {
             margin-bottom: 29px;
         }
+
+        .col-sm-10 {
+            font-size: 80%;
+            margin-right: 5px;
+        }
     </style>
 }
 
@@ -35,7 +40,7 @@
             var lis = $('.nav > li');
             menu_focus(lis[2], 4);
 
-            $('<audio id="error"><source src="/Content/20440__agfx__beep-pager.wav" type="audio/wav"></audio>').appendTo('body');
+            $('<audio id="error"><source src="~/Content/20440__agfx__beep-pager.wav" type="audio/wav"></audio>').appendTo('body');
 
             var count = 1;
             $("#itemTitle").keydown(function () {
@@ -45,11 +50,34 @@
                     //                    $("#error")[0].play();
                 }
             });
+
+            $(".browsebutton").click(function () {
+                var id = $(this).data("imageid");
+                $("input[id=image" + id + "]").click();
+            });
+
+            $("input:file").change(function () {
+                var id = $(this).attr("id");
+                $("." + id).val($(this).val());
+            });
+
+            var removeImgCounter=0;
+            $('input[name=deleteImg]').on("click", function (e) {
+                var id = $(this).data('imgid');
+                $(this).parents('form').append('<input type="hidden" name="DeletedImages['+removeImgCounter+']" value=' + id + ' />');
+                //@@todo add another field to add image in the place of the deleted
+                $(this).parents('.savedImg').fadeOut('slow');
+                removeImgCounter++;
+            });
+
         });
 
         function PlaySound(soundObj) {
             var sound = document.getElementById(soundObj);
             sound.Play();
         }
+        
+        
+
     </script>
 }
