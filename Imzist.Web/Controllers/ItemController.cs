@@ -206,7 +206,7 @@ namespace Imzist.Web.Controllers
 
         [Authorize]
         [HttpGet]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int itemid)
         {
             using (var dbContext = new ImzistEntities())
             {
