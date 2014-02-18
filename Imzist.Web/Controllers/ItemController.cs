@@ -210,7 +210,7 @@ namespace Imzist.Web.Controllers
         {
             using (var dbContext = new ImzistEntities())
             {
-                var item = dbContext.Items.First(i => i.Id == id);
+                var item = dbContext.Items.First(i => i.Id == itemid);
                 if (IsPoster(item.UserId))
                 {
                     
