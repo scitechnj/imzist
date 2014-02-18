@@ -35,8 +35,9 @@ namespace Imzist.Web.Controllers
             return userId == (Guid) Membership.GetUser(User.Identity.Name).ProviderUserKey;
 
         }
-        private Item ImageProcesser(Item item, int counter)
+        private Item ImageProcesser(Item item, IEnumerable<Image> imagesDb)
         {
+            int counter = imagesDb.Count();
             foreach (string file in Request.Files)
             {
                 var imageFile = Request.Files[file];
@@ -46,6 +47,11 @@ namespace Imzist.Web.Controllers
                 }
                 if (counter > 5) //limit of 5 images per item
                 {
+                    break;
+                }
+                if (item.Images.Any(image => image.Name == imageFile.FileName))
+                {
+                    //don't need to process existing image
                     break;
                 }
                 var imageBytes = new byte[imageFile.InputStream.Length];
@@ -103,7 +109,7 @@ namespace Imzist.Web.Controllers
             item.PostedDate = DateTime.Now;
             item.ExpirationDate = item.PostedDate.AddDays(expirationDays);
             item.UserId = (Guid)Membership.GetUser(User.Identity.Name).ProviderUserKey;
-            item = ImageProcesser(item,5);
+            item = ImageProcesser(item,new List<Image>());
             using (var dbContext = new ImzistEntities())
             {
                 dbContext.Items.Add(item);
@@ -159,22 +165,20 @@ namespace Imzist.Web.Controllers
                 {
                     var itemDb = dbContext.Items.First(i => i.Id == item.Id);
                     
-                    //want to check using the item.UserId from the db, not the one that user passed in - security risk
-                    //but can't reattach on line 172 with changes from user
                     if (IsPoster(itemDb.UserId))
                     {
-                        dbContext.Entry(itemDb).State = EntityState.Detached;
-                        //dbContext.Detach()
-                        itemDb = ImageProcesser(item, itemDb.Images.Count);
+                        
+                        item = ImageProcesser(item, itemDb.Images);
                          
                         itemDb.ExpirationDate = itemDb.PostedDate.AddDays(expirationDays);
-                        
+                        foreach (Image img in item.Images)
+                        {
+                            itemDb.Images.Add(img);
+                        }
+                        itemDb.Title = item.Title;
+                        itemDb.Description = item.Description;
+                        itemDb.CategoryId = item.CategoryId;
 
-                        dbContext.Items.Attach(item);
-                        dbContext.Entry(item).State = EntityState.Modified;
-                        //((IObjectContextAdapter) dbContext).ObjectContext.ObjectStateManager.ChangeObjectState(itemDb,
-                        //                                                                                       EntityState
-                        //                                                                                           .Modified);
 
                         dbContext.SaveChanges();
                         Emailer.SendEmail(User.Identity.Name, "Imzist Listing Updated",
@@ -198,7 +202,11 @@ namespace Imzist.Web.Controllers
                 var item = dbContext.Items.First(i => i.Id == id);
                 if (IsPoster(item.UserId))
                 {
-                    dbContext.Items.Attach(item);
+                    
+                    foreach (Image img in item.Images)
+                    {
+                        dbContext.Images.Remove(img);
+                    }
                     dbContext.Items.Remove(item);
                     dbContext.SaveChanges();
                 }
