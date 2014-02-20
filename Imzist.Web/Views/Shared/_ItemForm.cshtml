@@ -23,7 +23,11 @@
         </select>
         <label for="expirationDays">Expiration</label>
         <select class="form-control" name="expirationDays" style="margin-bottom: 20px;">
-            <option value="0" selected="selected">Original Expiration (in @Model.Item.ExpirationDate.Subtract(Model.Item.PostedDate).Days days)</option>
+            @if(ViewData["type"].ToString() == "edit")
+            {
+                <option value="0" selected="selected">Original Expiration (in @Model.Item.ExpirationDate.Subtract(Model.Item.PostedDate).Days days)</option>
+            }
+            
             @foreach (int i in new[] { 7,14,30 })
             {
                 <option value="@i">@i Days</option>
