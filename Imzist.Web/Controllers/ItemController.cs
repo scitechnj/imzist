@@ -213,8 +213,8 @@ namespace Imzist.Web.Controllers
                 var item = dbContext.Items.First(i => i.Id == itemid);
                 if (IsPoster(item.UserId))
                 {
-                    
-                    foreach (Image img in item.Images)
+                    //item.Images.Clear();                    
+                    foreach (Image img in item.Images.ToList())
                     {
                         dbContext.Images.Remove(img);
                     }
