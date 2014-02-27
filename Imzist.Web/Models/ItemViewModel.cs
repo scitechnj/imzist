@@ -11,4 +11,5 @@ namespace Imzist.Web.Models
         public Item Item { get; set; }
         public bool IsPoster { get; set; }
     }
+
 }
