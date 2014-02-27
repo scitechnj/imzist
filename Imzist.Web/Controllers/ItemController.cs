@@ -171,7 +171,7 @@ namespace Imzist.Web.Controllers
                         
                         item = ImageProcesser(item, itemDb.Images);
                         
-                        itemDb.ExpirationDate = itemDb.PostedDate.AddDays(expirationDays);
+                        itemDb.ExpirationDate = itemDb.ExpirationDate.AddDays(expirationDays);
                         foreach (Image img in item.Images)
                         {
                             itemDb.Images.Add(img);

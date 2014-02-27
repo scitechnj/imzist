@@ -846,6 +846,7 @@
     <Content Include="Views\Contact\Index.cshtml" />
     <Content Include="Views\AboutUs\Index.cshtml" />
     <Content Include="Views\Item\Edit.cshtml" />
+    <Content Include="Views\Shared\_ItemForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
